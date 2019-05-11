@@ -1,0 +1,55 @@
+{#
+[UPI-Payment] is a Payment Module to Integrate
+UPI - [ Unified Payments Interface ] A Service From NPCI - [ National Payments Corporation Of India ]
+as a Payment Gateway Method in OPENCART - 3.0.2.0 - 3.0.3.0 - 3.0.3.1
+
+Developed By:
+Mr. TARAKESHWAR GAJAM
+ABCD PAYMENT SERVICES, #4-1-71/416, Sai Durga Gardens, Nacharam Main Road, Medchal-Malkajgiri District, Telangana State - 500076, India.
+URL: https://www.abcd-pay.com , E-Mail : admin@abcd-pay.com, Mobile : 0091-0-8106877688.
+#}
+
+{#
+File Path = "catalog/view/theme/default/template/extension/payment/abcdpayupiqrconfirmorder.twig"
+#}
+
+<div class="buttons">
+    <div class="pull-right">
+        <input type="button" value="{{ button_confirm }}" id="button-confirm" name="button-confirm" data-loading-text="{{ text_loading }}" class="btn btn-primary" />
+    </div>
+</div>
+<div class="container-fluid">
+    <p></p>
+</div>
+<div class="container-fluid">
+    <p></p>
+</div>
+<div id="upiqrresult" name="upiqrresult">
+</div>
+<div class="container-fluid" style="visibility: hidden;">
+    <iframe src="https://www.abcd-pay.com"></iframe>
+</div>
+    
+<script type="text/javascript">
+    $('#button-confirm').on('click', function() {
+        if(document.getElementById('upiqrresult').childElementCount === 0){
+            $.ajax({
+                    url: 'index.php?route=extension/payment/abcdpayupiqr/confirmorder',
+                    datatype: 'html',
+                    beforeSend: function() {
+                            $('#button-confirm').button('loading');
+                    },
+                    complete: function() {
+                            $('#button-confirm').button('reset');
+                    },
+                    success: function(htmltext) {
+                        $('#upiqrresult').html(htmltext);
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                            console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                            location = 'index.php?route=checkout/success';
+                    }
+            });
+        }
+    });
+</script>

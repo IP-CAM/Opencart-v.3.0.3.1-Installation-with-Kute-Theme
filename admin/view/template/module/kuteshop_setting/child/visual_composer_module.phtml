@@ -1,0 +1,40 @@
+<?php
+function spilitName($name, $only_sub = false){
+    $name = htmlspecialchars_decode($name);
+    $name = explode(">", $name);
+    if($only_sub){
+        echo (isset($name[1]) ? trim($name[1]) : trim($name[0]));
+    }else{
+        echo "<span class='label-module'>{$name[0]}</span>".(isset($name[1]) ? "<br><span>".$name[1]."</span>" : "");
+    }
+}
+?>
+
+<?php foreach ($layout_modules as $key => $layout_module) { ?>
+    <?php if($layout_module['position'] == $position) { ?>
+        <?php foreach ($extensions as $extension) { ?>
+            <?php if (!$extension['module']) { ?>
+                <?php if ($extension['code'] == $layout_module['code']) { ?>
+                    <div class="well">
+                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][code]" value="<?php echo $extension['code']; ?>">
+                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][sort_order]" value="<?php echo $layout_module['sort_order']; ?>">
+                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][position]" value="<?php echo $layout_module['position']; ?>">
+                        <i class="fa fa-puzzle-piece"></i> <?php echo spilitName($extension['name']); ?> <span style="float: right;display: block;"><i class="fa fa-trash"></i></span>
+                    </div>
+                <?php } ?>
+            <?php } else { ?>
+                <?php foreach ($extension['module'] as $module) { ?>
+                    <?php if ($module['code'] == $layout_module['code']) { ?>
+                        <div class="well">
+                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][code]" value="<?php echo $module['code']; ?>">
+                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][sort_order]" value="<?php echo $layout_module['sort_order']; ?>">
+                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][position]" value="<?php echo $layout_module['position']; ?>">
+                            <i class="fa fa-puzzle-piece"></i> <?php echo spilitName($module['name']); ?> <span style="float: right;display: block;"><i class="fa fa-trash"></i></span>
+                        </div>
+                    <?php } ?>
+                <?php } ?>
+            <?php } ?>
+        <?php } ?>
+    <?php } ?>
+<?php } ?>
+

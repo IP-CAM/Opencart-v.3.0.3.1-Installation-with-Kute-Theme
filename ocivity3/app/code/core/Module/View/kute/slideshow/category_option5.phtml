@@ -1,0 +1,9 @@
+<div class="category-slider">
+    <ul class="owl-carousel owl-style2" data-dots="false" data-loop="true" data-nav = "true" data-autoplayTimeout="1000" data-autoplayHoverPause = "true" data-items="1">
+        <?php foreach ($banners as $banner) { ?>
+        <li>
+            <img src="<?php echo $banner['image']; ?>" alt="category-slider">
+        </li>
+        <?php } ?>
+    </ul>
+</div>

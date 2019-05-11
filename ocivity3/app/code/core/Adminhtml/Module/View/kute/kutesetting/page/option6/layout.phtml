@@ -1,0 +1,238 @@
+
+<div class="ui grid">
+    <div class="ui two column centered grid">
+        <div class="ui secondary menu">
+            <a class="active item" data-tab="home-page">HOME PAGE</a>
+            <!--<a class="item" data-tab="listing-page">LISTING PAGE</a>
+            <a class="item" data-tab="product-detail-page">PRODUCT DETAIL PAGE</a>-->
+        </div>
+        <div class="ui active tab segment" data-tab="home-page">
+            <div class="ui two column centered grid layout-page">
+                <div class="column">
+                    <!-- ROW FOR HEADER -->
+                    <!--<div class="setting-row row clear-space">
+                        <div class="column">
+                            <div class="box size-3 disabled-box">
+                                <span>HEADER</span>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div></div>
+                    <!-- ROW FOR MEGA MENU -->
+                    <div class="setting-row row clear-space">
+                        <div class="column">
+                            <div class="box size-4" data-id="mega_menu">
+                                <span>MEGA MENU</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ROW FOR BOX SLIDESHOW -->
+                    <div class="setting-row row clear-space">
+                        <div class="column">
+                            <div class="ui grid">
+                                <div class="twelve wide column" style="padding-right: 1px">
+                                    <div class="box size-1" data-id="slideshow">
+                                        <span>SLIDESHOW</span>
+                                    </div>
+                                </div>
+                                <div class="four wide column" style="padding-left: 1px">
+                                    <div class="box size-1" data-id="image_ads">
+                                        <span>IMAGE ADS</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ROW FOR POPULAR CATEGORIES -->
+                    <div class="setting-row row clear-space">
+                        <div class="column">
+                            <div class="box size-2" data-id="popular_categories">
+                                <span>POPULAR CATEGORIES</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ROW FOR BANNER ADS -->
+                    <div class="setting-row row clear-space">
+                        <div class="column">
+                            <div class="box size-2" data-id="banner_ads">
+                                <span>BANNER ADS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ROW FOR SMARTTAB -->
+                    <div class="setting-row row clear-space">
+                        <div class="column">
+                            <div class="box size-1" data-id="smarttab">
+                                <span>SMARTTAB MODULES</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ROW FOR BLOG -->
+                    <div class="setting-row row clear-space">
+                        <div class="column">
+                            <div class="box size-2" data-id="blog_static">
+                                <span>BLOG</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ROW FOR SERVICES -->
+                    <div class="setting-row row clear-space">
+                        <div class="column">
+                            <div class="box size-2" data-id="blog_services">
+                                <span>SERVICES</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="content_mega_menu" style="display: none;">
+    <div class="column layout-guide">
+        <div class="setting-row row clear-space">
+            <div class="column">
+                <span class="step">CONFIG Mega Menu:</span>
+                <div>
+                    <ul class="step-by-step">
+                        <li>Go to <b><a target="_blank" href="<?php echo $model_url->link('catalog/category', 'token=' . $session->data['token'], 'SSL');?>">Manage Categories</a></b></li>
+                        <li>Add/Edit any category</li>
+                        <li>In Tab <b>Data</b>, please tick on checkbox <b>Top</b> to enable on top menu.<br><br>
+                            <img src="../image/kuteshop_guide/mega_menu_tick.jpg" width="350" alt=""><br>
+                        </li>
+                        <li>Repeat on another category</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="content_slideshow" style="display: none;">
+    <div class="column layout-guide">
+        <div class="setting-row row clear-space">
+            <div class="column">
+                <span class="step">CONFIG Slideshow:</span>
+                <div>
+                    <ul class="step-by-step">
+                        <li>For this configuration, please play as default when add a slideshow on opencart</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="content_brand_showcase" style="display: none;">
+    <div class="column layout-guide">
+        <div class="setting-row row clear-space">
+            <div class="column">
+                <span class="step">CONFIG Brand Showcase:</span>
+                <div>
+                    <ul class="step-by-step">
+                        <li>Please <a target="_blank" href="<?php echo $model_url->link('extension/module/install', 'module=brand_tab&token=' . $session->data['token'], 'SSL');?>">click here</a> to install it</li>
+                        <li>Please <a target="_blank" href="<?php echo $model_url->link('module/brand_tab', 'token=' . $session->data['token'], 'SSL');?>">click here</a> to enable it</li>
+                        <li>After that step 2, please choose brand will be show on the frontend</li>
+                        <li>Go to <b>Layout</b> (Settings -> Design -> Layouts) (<a target="_blank" href="<?php echo $model_url->link('design/layout', 'token=' . $session->data['token'], 'SSL');?>">click here</a>)</li>
+                        <li>Edit your <b>Home</b> layout</li>
+                        <li>In edit form, click on the icon add module:<br><br>
+                            <img src="../image/kuteshop_guide/layout_add_module1.jpg" alt="" width="400"><br><br>
+                        </li>
+                        <li>Select module <b>Brand Tab (A)</b>, and select <b>Content Top (B)</b><br><br>
+                            <img src="../image/kuteshop_guide/brand_add_module2.jpg" alt="" width="400"><br><br>
+                        </li>
+                        <li>Save</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="content_smarttab" style="display: none;">
+    <div class="column layout-guide">
+        <div class="setting-row row clear-space">
+            <div class="column">
+                <span class="step">CONFIG Smarttab module:</span>
+                <div>
+                    <ul class="step-by-step">
+                        <li>Please <a target="_blank" href="<?php echo $model_url->link('extension/module/install', 'extension=smarttab&token=' . $session->data['token'], 'SSL');?>">click here</a> to install module <b>Smarttab</b></li>
+                        <li>Please <a target="_blank" href="<?php echo $model_url->link('module/smarttab', 'token=' . $session->data['token'], 'SSL');?>">click here</a> to configure it</li>
+                        <li>To know configure the module <b>Smarttab</b>, please read the document we have provided.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content_blog_static" style="display: none;">
+    <div class="column layout-guide">
+        <div class="setting-row row clear-space">
+            <div class="column">
+                <span class="step">CONFIG BLOG:</span>
+                <div>
+                    <ul class="step-by-step">
+                        <li>For this configuration, please edit in module admin</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content_banner_ads" style="display: none;">
+    <div class="column layout-guide">
+        <div class="setting-row row clear-space">
+            <div class="column">
+                <span class="step">CONFIG BANNER:</span>
+                <div>
+                    <ul class="step-by-step">
+                        <li>For this configuration, please edit in module admin</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content_popular_categories" style="display: none;">
+    <div class="column layout-guide">
+        <div class="setting-row row clear-space">
+            <div class="column">
+                <span class="step">CONFIG POPULAR CATEGORIES:</span>
+                <div>
+                    <ul class="step-by-step">
+                        <li>Coming soon...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content_blog_services" style="display: none;">
+    <div class="column layout-guide">
+        <div class="setting-row row clear-space">
+            <div class="column">
+                <span class="step">CONFIG SERVICES</span>
+                <div>
+                    <ul class="step-by-step">
+                        <li>For this configuration, please edit in module admin</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="content_empty" style="display: none;">
+    <div class="column layout-guide">
+        <div class="setting-row row clear-space">
+            <div class="column">
+                Nothing to guide
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+</script>

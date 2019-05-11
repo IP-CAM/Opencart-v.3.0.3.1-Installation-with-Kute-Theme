@@ -1,0 +1,119 @@
+<!-- HEADER -->
+<div id="header" class="header">
+    <div class="top-header">
+        <div class="container">
+            <div class="nav-top-links">
+                <a class="first-item" href="#"><?php echo $translator->_('Welcome to KuteShop'); ?></a>
+                <a href="#">Call Us: <?php echo $telephone; ?></a>
+            </div>
+            <a class="btn-fb-login" href="#">Login fb</a>
+            <div class="support-link">
+                <a href="#"><?php echo $translator->_('Services'); ?></a>
+                <a href="#"><?php echo $translator->_('Support'); ?></a>
+            </div>
+            <div id="user-info-top" class="user-info pull-right">
+                <div class="dropdown">
+                    <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" href="#"><span><?php echo $text_account; ?></span></a>
+                    <ul class="dropdown-menu mega_dropdown">
+                        <?php if ($logged) { ?>
+                            <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
+                        <?php } else { ?>
+                            <li><a href="<?php echo $login; ?>"><?php echo $text_login; ?></a></li>
+                        <?php } ?>
+                        <li><a href="index.php?route=product/compare"><?php echo $translator->_('Compare')?></a></li>
+                        <li><a href="index.php?route=account/wishlist"><?php echo $translator->_('Wishlist')?></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/.top-header -->
+    <!-- MAIN HEADER -->
+    <div id="main-header">
+        <div class="container main-header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3 logo">
+                    <?php if ($logo) { ?>
+                          <a href="<?php echo $home; ?>"><img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" class="img-responsive" /></a>
+                    <?php } else { ?>
+                          <h1><a href="<?php echo $home; ?>"><?php echo $name; ?></a></h1>
+                    <?php } ?>
+                </div>
+                <div id="main-menu" class="col-sm-12 col-md-8 main-menu">
+                    <nav class="navbar navbar-default">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                                <a class="navbar-brand" href="#"><?php echo $translator->_('MENU'); ?></a>
+                            </div>
+                            <div id="navbar" class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    <?php echo $Loader->block('common/header')->setTemplate('header/megamenu.phtml')->toHtml()?>
+                                </ul>
+                            </div><!--/.nav-collapse -->
+                        </div>
+                    </nav>
+                </div>
+                <?php echo $Loader->block('common/cart_container')->setTemplate('cart/container.phtml')->setData($data)->toHtml(); ?>
+            </div>
+        </div>
+    </div>
+    <!-- END MANIN HEADER -->
+    <div class="nav-top-menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3" id="box-vertical-megamenus">
+                    <div class="box-vertical-megamenus">
+                        <h4 class="title">
+                            <span class="title-menu"><?php echo $translator->_('Categories'); ?></span>
+                            <span class="btn-open-mobile pull-right home-page"><i class="fa fa-bars"></i></span>
+                        </h4>
+                        <div class="vertical-menu-content is-home">
+                            <ul class="vertical-menu-list">
+                                <?php foreach($custom_menu as $menu) {?>
+                                <li>
+                                    <a class="<?php echo (isset($menu['child']) && is_array($menu['child']) > 0 ? 'parent' : '');?>" href="<?php echo (isset($menu['link']) ? $menu['link'] : '#')?>"><span class="icon-menu <?php echo (isset($menu['icon']) ? $menu['icon'] : 'fa-bomb')?>"></span><?php echo $menu['name']?></a>
+                                    <?php if(isset($menu['child']) && is_array($menu['child']) > 0){ ?>
+                                    <div class="vertical-dropdown-menu">
+                                        <div class="vertical-groups col-sm-12">
+                                            <?php foreach($menu['child'] as $child_menu) {?>
+                                            <div class="mega-group col-sm-4">
+                                                <h4 class="mega-group-header"><span><?php echo $child_menu['name']?></span></h4>
+                                                <?php if(isset($child_menu['child']) && count($child_menu['child']) > 0){ ?>
+                                                <ul class="group-link-default">
+                                                    <?php foreach($child_menu['child'] as $sub_child_menu) {?>
+                                                    <li><a href="<?php echo (isset($sub_child_menu['link']) ? $sub_child_menu['link'] : '#')?>"><?php echo $sub_child_menu['name']?></a></li>
+                                                    <?php } ?>
+                                                </ul>
+                                                <?php } ?>
+                                            </div>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
+                                </li>
+                                <?php } ?>
+                            </ul>
+                            <div class="all-category"><span class="open-cate"><?php echo $translator->_('All Categories'); ?></span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 col-md-7 header-search-box formsearch-option4">
+                    <?php echo $search; ?>
+                </div>
+                <div class="col-sm-4 col-md-2 group-link-main-menu">
+                    <div class="language link-mainmenu">
+                        <?php echo $language; ?>
+                    </div>
+                    <div class="currency link-mainmenu">
+                        <?php echo $currency; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- end header -->

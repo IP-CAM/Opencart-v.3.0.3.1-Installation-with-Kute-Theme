@@ -1,0 +1,107 @@
+<div class="x_panel">
+    <div class="x_title">
+        <h2>HOMEPAGE</h2>
+        <ul class="nav navbar-right panel_toolbox" style="min-width: 20px !important;">
+            <li><a class="collapse-link"><i class="fa fa-chevron-down"></i></a></li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        <div class="row">
+            <p><strong>Slideshow Additional Images</strong></p>
+            <div class="form-group">
+                <label class="control-label col-md-2">LEFT</label>
+                <div class="col-md-1">
+                    <label class="">
+                        <input type="checkbox" class="js-switch" <?php echo ($kutetheme_setting_slider_addition_display_left ? 'checked="checked"' : '')?> name="kutetheme_setting_slider_addition_display_left"/>
+                    </label>
+                </div>
+                <div class="col-md-1">
+                    <a href="" id="slider_addition_image_left" data-toggle="image" class="img-thumbnail"><img src="<?php echo $slider_addition_image_left; ?>"/></a>
+                    <input type="hidden" name="kutetheme_setting_slider_addition_image_left" value="<?php echo $kutetheme_setting_slider_addition_image_left; ?>" id="input-slider_addition_image_left" />
+                </div>
+                <div class="col-md-8">
+                    <label class="">
+                        <input type="text" class="form-control" name="kutetheme_setting_slider_addition_link_left" placeholder="LINK IMAGE LEFT"/>
+                    </label>
+                </div>
+                <div class="clearfix"></div><br>
+                <label class="control-label col-md-2">RIGHT</label>
+                <div class="col-md-1">
+                    <label class="">
+                        <input type="checkbox" class="js-switch" <?php echo ($kutetheme_setting_slider_addition_display_right ? 'checked="checked"' : '')?> name="kutetheme_setting_slider_addition_display_right"/>
+                    </label>
+                </div>
+                <div class="col-md-1">
+                    <a href="" id="slider_addition_image_right" data-toggle="image" class="img-thumbnail"><img src="<?php echo $slider_addition_image_right; ?>"/></a>
+                    <input type="hidden" name="kutetheme_setting_slider_addition_image_right" value="<?php echo $kutetheme_setting_slider_addition_image_right; ?>" id="input-slider_addition_image_right" />
+                </div>
+                <div class="col-md-8">
+                    <label class="">
+                        <input type="text" class="form-control" name="kutetheme_setting_slider_addition_link_right" placeholder="LINK IMAGE RIGHT"/>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p><strong>Footer Block</strong></p>
+            <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab_footer_address" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Address</a></li>
+                <li role="presentation" class=""><a href="#tab_footer_social" role="tab" id="social-tab2" data-toggle="tab" aria-expanded="false">Social Links</a></li>
+                <li role="presentation" class=""><a href="#tab_footer_payment_method" role="tab" id="payment_method-tab2" data-toggle="tab" aria-expanded="false">Accepted Payment Method</a></li>
+                <li role="presentation" class=""><a href="#tab_footer_keywords" role="tab" id="keywords-tab2" data-toggle="tab" aria-expanded="false">Keywords</a></li>
+                <li role="presentation" class=""><a href="#tab_footer_links" role="tab" id="keywords-tab2" data-toggle="tab" aria-expanded="false">Footer Links</a></li>
+            </ul>
+            <div id="myTabFooterContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="tab_footer_address" aria-labelledby="address-footer-tab">
+                    <textarea class="kutetheme_setting_footer text" name="kutetheme_setting_footer_address" id="" cols="30" rows="10"><?php echo $kutetheme_setting_footer_address?></textarea>
+                </div>
+
+                <div role="tabpanel" class="tab-pane fade" id="tab_footer_social" aria-labelledby="social_links-footer-tab">
+                    <div class="form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="kutetheme_setting_social_link[facebook]" value="<?php echo $kutetheme_setting_social_link['facebook']?>" id="inputSuccess2" placeholder="Facebook link">
+                            <span class="fa fa-facebook-square form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="kutetheme_setting_social_link[pinterest]" value="<?php echo $kutetheme_setting_social_link['pinterest']?>" id="inputSuccess2" placeholder="Pinterest link">
+                            <span class="fa fa-pinterest form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="kutetheme_setting_social_link[vk]" value="<?php echo $kutetheme_setting_social_link['vk']?>" id="inputSuccess2" placeholder="WK link">
+                            <span class="fa fa-vk form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="kutetheme_setting_social_link[twitter]" value="<?php echo $kutetheme_setting_social_link['twitter']?>" id="inputSuccess2" placeholder="Twitter link">
+                            <span class="fa fa-twitter form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                            <input type="text" class="form-control has-feedback-left" name="kutetheme_setting_social_link[gplus]" value="<?php echo $kutetheme_setting_social_link['gplus']?>" id="inputSuccess2" placeholder="G+ link">
+                            <span class="fa fa-google-plus-square form-control-feedback left" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_footer_payment_method" aria-labelledby="payment_method-footer-tab">
+                    <textarea class="kutetheme_setting_footer text" name="kutetheme_setting_footer_payment_method" id="" cols="30" rows="10"><?php echo $kutetheme_setting_footer_payment_method?></textarea>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_footer_keywords" aria-labelledby="keywords-footer-tab">
+                    <textarea class="kutetheme_setting_footer text" name="kutetheme_setting_footer_keywords" id="" cols="30" rows="10"><?php echo $kutetheme_setting_footer_keywords?></textarea>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab_footer_links" aria-labelledby="keywords-footer-link">
+                    <textarea class="kutetheme_setting_footer text" name="kutetheme_setting_footer_links" id="" cols="30" rows="10"><?php echo $kutetheme_setting_footer_links?></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('.kutetheme_setting_footer.text').summernote({
+            height: 200,
+            oninit: function(){
+                $("div.note-editor button[data-event='codeview']").click();
+            }
+        });
+    });
+</script>

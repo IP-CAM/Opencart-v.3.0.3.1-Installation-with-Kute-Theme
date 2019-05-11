@@ -1,0 +1,129 @@
+<input type="hidden" name="kutetheme_setting_vertical_menu" value="<?php echo $kutetheme_setting_vertical_menu?>">
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-3 pull-right" style="margin: 0 16px">
+            <div class="form-group">
+                <div class="col-md-1 pull-right">
+                    <input type="checkbox" class="js-switch" value="1" <?php echo ($kutetheme_setting_enabled_vertical_menu ? 'checked="checked"' : '')?> name="kutetheme_setting_enabled_vertical_menu"/>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="dd" id="domenu-1">
+            <button type="button" id="domenu-add-item-btn" class="dd-new-item">+</button>
+            <!-- .dd-item-blueprint is a template for all .dd-item's -->
+            <li class="dd-item-blueprint">
+                <div class="dd-handle dd3-handle fa fa-arrows-alt fa-1">Drag</div>
+                <div class="dd3-content">
+                    <span>[item_name]</span>
+                    <!-- @migrating-from 0.13.29 button container-->
+                    <div class="button-container">
+                        <!-- @migrating-from 0.13.29 add button-->
+                        <i class="item-add fa fa-plus-square fa-2"></i>
+                        <i class="item-remove fa fa-minus-square fa-2" data-confirm-class="item-remove-confirm"></i>
+                    </div>
+                    <div class="dd-edit-box" style="display: none;">
+                        <!-- data-placeholder has a higher priority than placeholder -->
+                        <!-- data-placeholder can use token-values; when not present will be set to "" -->
+                        <!-- data-default-value specifies a default value for the input; when not present will be set to "" -->
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Label</label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input class="form-control" type="text" name="title" autocomplete="off" placeholder="Item" data-placeholder="Label for menu" data-default-value="Click to edit Item. {?numeric.increment}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Link</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input class="form-control" type="text" name="link" autocomplete="off" placeholder="Item" data-placeholder="Link for menu" data-default-value="Click to edit Item. {?numeric.increment}">
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">Icon</label>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <select name="icon" class="form-control selection-icon">
+                                            <?php foreach($icons as $icon) { ?>
+                                                <option value="<?php echo $icon?>"><?php echo $icon?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-10 col-sm-10 col-xs-12">
+                                        <button type="button" class="btn btn-success end-edit">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="clear: both;margin-bottom: 0px"></div>
+
+                        <!-- @migrating-from 0.13.29 an element ".end-edit" within ".dd-edit-box" exists the edit mode on click -->
+                    </div>
+                </div>
+            </li>
+
+            <ol class="dd-list"></ol>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function()
+    {
+        function formatIconItem (state) {
+            if (!state.id) { return state.text; }
+            var $state = $(
+
+            );
+            return '<span class="'+state.text+'"> ' + state.text + '</span>';
+        }
+
+        function formatSelectedItem(e){
+            return '<span class="'+ e.text+'"> ' + e.text + '</span>';
+        }
+
+        $('#domenu-1').domenu({
+            slideAnimationDuration: 0,
+            onDomenuInitialized: [function() {
+            }],
+            onItemStartEdit: [function(item, i) {
+                item.find(".selection-icon").select2({
+                    templateResult: formatIconItem,
+                    templateSelection: formatSelectedItem
+                }).on('change', function(e){
+
+                });
+            }],
+            data: '<?php echo (!empty($kutetheme_setting_vertical_menu) ? htmlspecialchars_decode($kutetheme_setting_vertical_menu) : '[]')?>'
+        }).parseJson()
+            .onParseJson(function() {
+            })
+            .onToJson(function() {
+            })
+            .onSaveEditBoxInput(function() {
+            })
+            .onItemDrag(function() {
+            })
+            .onItemDrop(function() {
+            })
+            .onItemAdded(function() {
+            })
+            .onItemRemoved(function() {
+            })
+            .onItemStartEdit(function() {
+            })
+            .onItemEndEdit(function() {
+            })
+            .onItemAddChildItem(function() {
+            });
+    });
+</script>

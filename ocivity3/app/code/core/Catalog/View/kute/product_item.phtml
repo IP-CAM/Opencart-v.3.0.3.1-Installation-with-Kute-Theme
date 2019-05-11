@@ -1,0 +1,48 @@
+<?php foreach ($products as $product) { ?>
+    <li class="col-sx-12 <?php if ($column_left || $column_right) { ?>col-sm-<?php echo (isset($category_product_per_row) && !empty($category_product_per_row) ? intval($category_product_per_row) : 4)?><?php }else{ ?>col-sm-<?php echo (isset($category_product_per_row) && !empty($category_product_per_row) ? intval($category_product_per_row) : 3)?><?php } ?>">
+        <div class="product-container">
+            <div class="left-block">
+                <a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-responsive" /></a>
+                <div class="quick-view">
+                    <a class="heart" data-toggle="tooltip" title="<?php echo $button_wishlist; ?>" onclick="wishlist.add('<?php echo $product['product_id']; ?>');"></a>
+                    <a class="compare" data-toggle="tooltip" title="<?php echo $button_compare; ?>" onclick="compare.add('<?php echo $product['product_id']; ?>');"></a>
+                    <a title="Quick view" class="search quickview" href="javascript:quickview.view(<?php echo $product['product_id']; ?>);" data-product-id="<?php echo $product['product_id']; ?>"></a>
+                </div>
+                <div class="add-to-cart">
+                    <a title="<?php echo $button_cart; ?>" onclick="cart.add('<?php echo $product['product_id']; ?>');"><?php echo $button_cart; ?></a>
+                </div>
+            </div>
+            <div class="right-block">
+                <h5 class="product-name"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h5>
+                <?php if ($product['rating']) { ?>
+                    <p class="product-star">
+                        <?php for ($i = 1; $i <= 5; $i++) { ?>
+                            <?php if ($product['rating'] < $i) { ?>
+                                <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-1x"></i></span>
+                            <?php } else { ?>
+                                <span class="fa fa-stack"><i class="fa fa-star fa-stack-1x"></i><i class="fa fa-star-o fa-stack-1x"></i></span>
+                            <?php } ?>
+                        <?php } ?>
+                    </p>
+                <?php } ?>
+
+                <?php if ($product['price']) { ?>
+                    <div class="content_price">
+                        <?php if (!$product['special']) { ?>
+                            <span class="price product-price"><?php echo $product['price']; ?></span>
+                        <?php } else { ?>
+                            <span class="price product-price"><?php echo $product['special']; ?></span> <span class="price old-price"><?php echo $product['price']; ?></span>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+                <div class="info-orther">
+                    <p><?php echo $translator->_('Item Code:')?> <?php echo $product['model']?></p>
+                    <p class="availability"><?php echo $translator->_('Availability:')?> <span><?php echo $product['stock_status']?></span></p>
+                    <div class="product-desc">
+                        <?php echo $product['description']?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+<?php } ?>

@@ -1,0 +1,68 @@
+
+<footer id="footer">
+    <div class="container">
+        <div id="introduce-box" class="row">
+            <div class="col-md-3">
+                <?php echo $Loader->block('common/footer_'.$current_theme.'_address')->setTemplate('footer/child/address.phtml')->setData($data)->toHtml(); ?>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <?php if ($informations) { ?>
+                        <div class="col-sm-4">
+                            <div class="introduce-title"><?php echo $text_information; ?></div>
+                            <ul id="information" class="introduce-list">
+                                <?php foreach ($informations as $information) { ?>
+                                    <li><a href="<?php echo $information['href']; ?>"><?php echo $information['title']; ?></a></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    <?php } ?>
+                    <div class="col-sm-4">
+                        <div class="introduce-title"><?php echo $text_service; ?></div>
+                        <ul id="service" class="introduce-list">
+                            <li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
+                            <li><a href="<?php echo $return; ?>"><?php echo $text_return; ?></a></li>
+                            <li><a href="<?php echo $sitemap; ?>"><?php echo $text_sitemap; ?></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="introduce-title"><?php echo $text_extra; ?></div>
+                        <ul id="text_extra" class="introduce-list">
+                            <li><a href="<?php echo $manufacturer; ?>"><?php echo $text_manufacturer; ?></a></li>
+                            <li><a href="<?php echo $voucher; ?>"><?php echo $text_voucher; ?></a></li>
+                            <li><a href="<?php echo $affiliate; ?>"><?php echo $text_affiliate; ?></a></li>
+                            <li><a href="<?php echo $special; ?>"><?php echo $text_special; ?></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div id="contact-box">
+                    <div class="introduce-title"><?php echo $translator->_('Newsletter')?></div>
+                    <div class="input-group box-newsletter-subscribe" id="mail-box">
+                        <input type="text" name="email" placeholder="<?php echo $translator->_('Your Email Address')?>"/>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default enter-subscribe" type="button"><?php echo $translator->_('OK')?></button>
+                  </span>
+                    </div><!-- /input-group -->
+                    <?php echo $Loader->block('common/footer_'.$current_theme.'_social')->setTemplate('footer/child/social.phtml')->setData($data)->toHtml(); ?>
+                </div>
+
+            </div>
+        </div>
+        <!-- #trademark-box -->
+
+        <?php echo $Loader->block('common/footer_'.$current_theme.'_payment')->setTemplate('footer/child/payment.phtml')->setData($data)->toHtml(); ?>
+        <!-- /#trademark-box -->
+        <?php echo $Loader->block('common/footer_'.$current_theme.'_hotkey')->setTemplate('footer/child/hotkey.phtml')->setData($data)->toHtml(); ?>
+        <div id="footer-menu-box">
+            <?php echo $Loader->block('common/footer_'.$current_theme.'_company')->setTemplate('footer/child/company.phtml')->setData($data)->toHtml(); ?>
+            <p class="text-center"><?php echo $translator->_('Copyrights'); ?></p>
+            </div><!-- /#footer-menu-box -->
+
+    </div>
+</footer>
+<script type="text/javascript" src="catalog/view/theme/kute/js/countdown/jquery.plugin.js"></script>
+<script type="text/javascript" src="catalog/view/theme/kute/js/countdown/jquery.countdown.js"></script>
+<script type="text/javascript" src="catalog/view/theme/kute/js/theme-script.js"></script>
+

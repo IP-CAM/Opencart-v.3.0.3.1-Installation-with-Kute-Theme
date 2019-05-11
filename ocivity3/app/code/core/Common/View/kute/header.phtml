@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]><html dir="<?php echo $direction; ?>" lang="<?php echo $lang; ?>" class="ie8"><![endif]-->
+<!--[if IE 9 ]><html dir="<?php echo $direction; ?>" lang="<?php echo $lang; ?>" class="ie9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html dir="<?php echo $direction; ?>" lang="<?php echo $lang; ?>">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><?php echo $title; ?></title>
+<base href="<?php echo $base; ?>" />
+<?php if ($description) { ?>
+<meta name="description" content="<?php echo $description; ?>" />
+<?php } ?>
+<?php if ($keywords) { ?>
+<meta name="keywords" content= "<?php echo $keywords; ?>" />
+<?php } ?>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<?php if (isset($icon)) { ?>
+<link href="<?php echo $icon; ?>" rel="icon" />
+<?php } ?>
+<?php foreach ($links as $link) { ?>
+<link href="<?php echo $link['href']; ?>" rel="<?php echo $link['rel']; ?>" />
+<?php } ?>
+
+<?php if ($direction == 'rtl'){ $dir =  '.rtl';} else {$dir =  '';} ?>
+<?php if ($direction == 'rtl'){  ?>
+<link href="catalog/view/theme/kute/stylesheet/bootstrap.min.rtl.css" rel="stylesheet" media="screen" />
+<?php }else{ ?>
+<link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<?php } ?>
+<link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="catalog/view/theme/kute/stylesheet/gg-open-sans-400-400i-300-700.css" rel="stylesheet" type="text/css" />
+<link href="catalog/view/theme/kute/stylesheet/select2.min.css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="catalog/view/theme/kute/stylesheet/jquery.bxslider/jquery.bxslider.css" />
+<link rel="stylesheet" type="text/css" href="catalog/view/theme/kute/stylesheet/owl.carousel/owl.carousel.css" />
+<link rel="stylesheet" type="text/css" href="catalog/view/theme/kute/stylesheet/jquery-ui/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="catalog/view/theme/kute/stylesheet/animate.css" />
+<link rel="stylesheet" type="text/css" href="catalog/view/theme/kute/stylesheet/reset.css" />
+
+<link href="catalog/view/theme/kute/stylesheet/style<?php echo $dir; ?>.css" rel="stylesheet"/>
+
+<link rel="stylesheet" type="text/css" href="catalog/view/theme/kute/stylesheet/responsive.css" />
+<link rel="stylesheet" type="text/css" href="catalog/view/theme/kute/stylesheet/metro-icons.css" />
+<?php foreach ($styles as $style) { ?>
+<link href="<?php echo $style['href']; ?>" type="text/css" rel="<?php echo $style['rel']; ?>" media="<?php echo $style['media']; ?>" />
+<?php } ?>
+<link href="catalog/view/theme/kute/stylesheet/<?php echo $current_theme; ?><?php echo $dir; ?>.css" rel="stylesheet"/>
+
+<script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="catalog/view/theme/kute/js/custom.modal/jquery.modal.css" />
+<script src="catalog/view/theme/kute/js/custom.modal/jquery.modal.min.js" type="text/javascript"></script>
+<script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script>
+    $.fn.bootstrapModal = $.fn.modal.noConflict();
+    $.fn.bootstrapBtn = $.fn.button.noConflict();
+    $('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
+    window.direction = '<?php echo $direction?>';
+</script>
+<script src="catalog/view/theme/kute/js/common.js" type="text/javascript"></script>
+<script src="catalog/view/theme/kute/js/select2/select2.min.js" type="text/javascript"></script>
+
+<?php foreach ($scripts as $script) { ?>
+<script src="<?php echo $script; ?>" type="text/javascript"></script>
+<?php } ?>
+<?php if(isset($google_analytics)) { ?>
+    <?php echo $google_analytics; ?>
+<?php } else if(isset($analytics) && is_array($analytics)) { ?>
+    <?php foreach ($analytics as $analytic) { ?>
+        <?php echo $analytic; ?>
+    <?php } ?>
+<?php } ?>
+<!-- Style customized by setting -->
+<?php echo $Loader->block('common/header_stylesheet_option')->setTemplate('header/stylesheet/css.phtml')->setData($data)->toHtml(); ?>
+</head>
+<body class="kuteshop <?php echo $class.' ';  echo $current_theme; ?>">
+<?php echo $Loader->block('common/template_quickview')->setTemplate('template/quickview.phtml')->setData($data)->toHtml(); ?>
+<?php echo $Loader->block('common/header_'.$current_theme.'')->setTemplate('header/'.$current_theme.'.phtml')->setData($data)->toHtml(); ?>

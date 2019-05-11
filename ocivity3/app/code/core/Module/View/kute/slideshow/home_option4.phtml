@@ -1,0 +1,26 @@
+<div id="home-slider">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 slider-left">
+
+            </div>
+            <div class="col-sm-9 header-top-right">
+                <div class="homeslider">
+                    <div class="content-slide">
+                        <ul id="contenhomeslider">
+                            <?php foreach ($banners as $banner) { ?>
+                                <li class="item">
+                                    <?php if ($banner['link']) { ?>
+                                        <a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" /></a>
+                                    <?php } else { ?>
+                                        <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" />
+                                    <?php } ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

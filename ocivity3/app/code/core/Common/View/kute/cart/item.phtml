@@ -1,0 +1,17 @@
+<?php foreach ($products as $product) { ?>
+    <ul class="product-info">
+        <div class="p-left">
+            <a class="remove_link" onclick="cart.remove('<?php echo (isset($product['key']) ? $product['key'] : $product['cart_id']); ?>');"></a>
+            <?php if ($product['thumb']) { ?>
+                <a href="<?php echo $product['href']; ?>">
+                    <img class="img-responsive" src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>"/>
+                </a>
+            <?php } ?>
+        </div>
+        <div class="p-right">
+            <p class="p-name"><?php echo $product['name']; ?></p>
+            <p class="p-rice"><?php echo $product['total']; ?></p>
+            <p>Qty: <?php echo $product['quantity']; ?></p>
+        </div>
+    </ul>
+<?php } ?>

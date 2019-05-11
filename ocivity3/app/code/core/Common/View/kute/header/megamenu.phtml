@@ -1,0 +1,52 @@
+<li class="<?php echo (!$current_category_id ? 'active' : '')?>"><a href="#"><?php echo $translator->_('Home'); ?></a></li>
+<?php foreach($categories as $category){ ?>
+    <li class="<?php echo (isset($category['sub']) && $category['level'] >= 2 ? 'dropdown' : ''); ?> <?php echo ($current_category_id ==  $category['category_id']? 'active' : '')?>">
+        <a href="<?php echo $url->link('product/category', 'path=' . $category['category_id']); ?>" <?php echo (isset($category['sub']) && $category['level'] >= 2 ? ' class="dropdown-toggle" data-toggle="dropdown"' : ''); ?>>
+            <?php echo $category['name']; ?>
+        </a>
+        <?php if(isset($category['sub'])) { ?>
+            <?php $i = 0;?>
+            <?php if($category['level'] > 2) { ?>
+                <ul class="dropdown-menu mega_dropdown" role="menu" style="width: 830px;">
+                    <?php foreach($category['sub'] as $subcategory) { ?>
+                        <?php if ($i > 3) continue?>
+                        <li class="block-container col-sm-3">
+                            <ul class="block">
+                                <?php if (!empty($subcategory['image'])) {?>
+                                    <li class="img_container">
+                                        <a href="#">
+                                            <img class="img-responsive" src="<?php echo $model_tool_image->resize($subcategory['image'], 665, 450)?>" alt="sport">
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                <li class="link_container group_header">
+                                    <a href="<?php echo $url->link('product/category', 'path=' . $category['category_id'] . "_" . $subcategory['category_id']); ?>"><?php echo $subcategory['name']; ?></a>
+                                </li>
+                                <?php if(isset($subcategory['sub'])) { ?>
+                                    <?php foreach($subcategory['sub'] as $sub) { ?>
+                                        <li class="link_container"><a href="<?php echo $url->link('product/category', 'path=' . $category['category_id'] . "_"  . $sub['category_id']); ?>"><?php echo $sub['name']; ?></a></li>
+                                    <?php } ?>
+                                <?php } ?>
+                            </ul>
+                        </li>
+                        <?php $i++;?>
+                    <?php } ?>
+                </ul>
+            <?php } else if ($category['level'] == 2) { ?>
+                <ul class="dropdown-menu container-fluid">
+                    <li class="block-container">
+                        <ul class="block">
+                            <?php foreach($category['sub'] as $subcategory) { ?>
+                                <?php if ($i > 30) continue?>
+                                <li class="link_container">
+                                    <a href="<?php echo $url->link('product/category', 'path=' . $category['category_id'] . "_" . $subcategory['category_id']); ?>"><?php echo $subcategory['name']; ?></a>
+                                </li>
+                                <?php $i++;?>
+                            <?php } ?>
+                        </ul>
+                    </li>
+                </ul>
+            <?php } ?>
+        <?php } ?>
+    </li>
+<?php } ?>

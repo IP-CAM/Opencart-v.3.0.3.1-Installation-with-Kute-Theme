@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Advanced Default Modules</name>
+    <code>adv_default_modules</code>
+    <version>1.0</version>
+    <author>anh.to87@gmail.com</author>
+    <link>http://www.refreshux.com</link>
+    <file path="admin/controller/extension/module.php">
+        <operation>
+            <search regex="true">
+                <![CDATA[~\$module_data,~]]>
+            </search>
+            <add position="replace">
+                <![CDATA[array(),]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$extension = basename($file, '.php');]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+                $skip_modules = parse_ini_file(DIR_OCIVITY3."lib/ini/exclude_modules.ini");
+                $skip_modules = $skip_modules['_'];
+
+                if (!isset($this->request->get['exclude']))
+                {
+
+                    if(in_array($extension, $skip_modules))
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    if(!in_array($extension, $skip_modules))
+                    {
+                        continue;
+                    }
+                }
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/controller/module/*.php">
+        <operation>
+            <search>
+                <![CDATA[$this->document->setTitle]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+        $data['modules'] = array();
+        $this->load->model('design/banner');
+        $data['banners'] = $this->model_design_banner->getBanners();
+        if(!isset($this->request->get['module_id'])){
+            $this->load->language('extension/module');
+            $this->load->model('extension/module');
+            $this->load->model('extension/extension');
+
+            $data['button_edit'] = $this->language->get('button_edit');
+            $data['button_delete'] = $this->language->get('button_delete');
+            $data['text_list'] = $this->language->get('text_list');
+            $data['text_no_results'] = $this->language->get('text_no_results');
+            $data['text_confirm'] = $this->language->get('text_confirm');
+
+            $data['column_name'] = $this->language->get('column_name');
+            $data['column_action'] = $this->language->get('column_action');
+
+            $extensions = $this->model_extension_extension->getInstalled('module');
+
+            foreach ($extensions as $key => $value) {
+                if (!file_exists(DIR_APPLICATION . 'controller/module/' . $value . '.php')) {
+                    $this->model_extension_extension->uninstall('module', $value);
+
+                    unset($extensions[$key]);
+
+                    $this->model_extension_module->deleteModulesByCode($value);
+                }
+            }
+
+            $extension = basename(__FILE__, '.php');
+            $module_data = array();
+
+            $modules = $this->model_extension_module->getModulesByCode($extension);
+
+            foreach ($modules as $module) {
+                $module_data[] = array(
+                    'module_id' => $module['module_id'],
+                    'name'      => $this->language->get('heading_title') . ' &gt; ' . $module['name'],
+                    'edit'      => $this->url->link('module/' . $extension, 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], 'SSL'),
+                    'delete'    => $this->url->link('extension/module/delete', 'token=' . $this->session->data['token'] . '&module_id=' . $module['module_id'], 'SSL')
+                );
+            }
+
+            $data['modules'] = $module_data;
+        }
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/view/template/module/{advanced_default_modules/*,*}.tpl">
+        <operation>
+            <search index="1">
+                <![CDATA[<div class="container-fluid">]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+        <?php if ($modules) { ?>
+        <div class="container-fluid">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-puzzle-piece"></i> <?php echo $text_list; ?></h3>
+                </div>
+                <div class="panel-body">
+                    <form action="<?php echo $delete; ?>" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <td class="text-left"><?php echo $column_name; ?></td>
+                                    <td class="text-right"><?php echo $column_action; ?></td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php if ($modules) { ?>
+                                    <?php foreach ($modules as $module) { ?>
+                                        <tr>
+                                            <td class="text-left"><?php echo $module['name']; ?></td>
+                                            <td class="text-right"><a onclick="confirm('<?php echo $text_confirm; ?>') ? location.href='<?php echo $module['delete']; ?>' : false;" data-toggle="tooltip" title="<?php echo $button_delete; ?>" class="btn btn-danger"><i class="fa fa-trash-o"></i></a> <a href="<?php echo $module['edit']; ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+                                        </tr>
+                                    <?php } ?>
+                                <?php } else { ?>
+                                    <tr>
+                                        <td class="text-center" colspan="2"><?php echo $text_no_results; ?></td>
+                                    </tr>
+                                <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </form>
+        </div>
+        <?php } ?>
+                ]]>
+            </add>
+        </operation>
+    </file>
+</modification>

@@ -1,0 +1,443 @@
+<?php
+function spilitName($name, $only_sub = false){
+    $name = htmlspecialchars_decode($name);
+    $name = explode(">", $name);
+    if($only_sub){
+        echo (isset($name[1]) ? trim($name[1]) : trim($name[0]));
+    }else{
+        echo "<span class='label-module'>{$name[0]}</span>".(isset($name[1]) ? "<br><span>".$name[1]."</span>" : "");
+    }
+}
+?>
+<?php if(!isset($ajax)) { ?>
+<style>
+    .theme-setting #visual_composer .layout-composer .accordion .panel-heading{
+        padding: 6px;
+    }
+    .theme-setting #visual_composer .layout-composer .x_content h4{
+        font-size: 12px;
+    }
+    #visual_composer .layout-composer .panel-body{
+        padding: 6px;
+    }
+    #visual_composer .layout-composer .panel-body .list-sub-module{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    #visual_composer .layout-composer .panel-body .list-sub-module li{
+        list-style-type: none;
+        border: 1px solid rgba(218, 215, 215, 0.71);
+        margin: 5px 0;
+        padding: 3px 8px;
+        cursor: move;
+    }
+    #visual_composer .layout-composer .panel-body .list-sub-module li .fa-arrows{
+        margin: 0 2px 0 0;
+        cursor: move;
+    }
+</style>
+
+<div class="col-md-12 header-composer">
+    <!--<div class="col-md-6 msg" style="display: none;;">
+        <span class="label label-success">Save module is completed.</span>
+    </div>-->
+    <div class="col-md-12">
+        <!--<div class="col-md-3 pull-right" style="z-index: 9999;">
+            <button type="button" class="btn btn btn-success pull-right save-layout-module">Save modules</button>
+        </div>-->
+        <div class="col-md-3"></div>
+        <div class="col-md-8" style="margin-right: -80px;">
+            <div class="form-group">
+                <label for="" class="control-label col-md-3">Choose layout</label>
+               <div class="col-md-9">
+                   <select name="layout_id" id="" class="form-control selection-layout2" style="width: 200px;">
+                       <?php foreach($layouts as $layout) { ?>
+                           <option value="<?php echo $layout['layout_id'];?>" <?php echo ($layout_id == $layout['layout_id'] ? 'selected="selected"' : '')?>><?php echo $layout['name'];?></option>
+                       <?php } ?>>
+                   </select>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php } ?>
+<form id="frm-layout-composer">
+<div class="col-md-12 layout-composer">
+    <div class="col-md-9 left">
+        <!-- HEADER -->
+        <div style="padding: 10px">
+            <div style="padding: 10px;background: rgba(128, 128, 128, 0.54);text-transform: uppercase;text-align: center;">header</div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- LEFT -->
+        <div class="col-md-4" style="position: relative">
+            <div class="box-x" style="min-height: 600px;" id="content_left_builder" data-position="column_left">
+                <?php foreach ($layout_modules as $key => $layout_module) { ?>
+                    <?php if($layout_module['position'] == 'column_left') { ?>
+                        <?php foreach ($extensions as $extension) { ?>
+                            <?php if (!$extension['module']) { ?>
+                                <?php if ($extension['code'] == $layout_module['code']) { ?>
+                                    <div class="well">
+                                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][code]" value="<?php echo $extension['code']; ?>">
+                                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][sort_order]" value="<?php echo $layout_module['sort_order']; ?>">
+                                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][position]" value="<?php echo $layout_module['position']; ?>">
+                                        <i class="fa fa-puzzle-piece"></i> <?php echo spilitName($extension['name']); ?> <span style="float: right;display: block;"><i class="fa fa-trash"></i></span>
+                                    </div>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <?php foreach ($extension['module'] as $module) { ?>
+                                    <?php if ($module['code'] == $layout_module['code']) { ?>
+                                        <div class="well">
+                                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][code]" value="<?php echo $module['code']; ?>">
+                                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][sort_order]" value="<?php echo $layout_module['sort_order']; ?>">
+                                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][position]" value="<?php echo $layout_module['position']; ?>">
+                                            <i class="fa fa-puzzle-piece"></i> <?php echo spilitName($module['name']); ?> <span style="float: right;display: block;"><i class="fa fa-trash"></i></span>
+                                        </div>
+                                    <?php } ?>
+                                <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box-x" style="min-height: 100px;" id="content_top_builder" data-position="content_top">
+                <?php foreach ($layout_modules as $key => $layout_module) { ?>
+                    <?php if($layout_module['position'] == 'content_top') { ?>
+                        <?php foreach ($extensions as $extension) { ?>
+                            <?php if (!$extension['module']) { ?>
+                                <?php if ($extension['code'] == $layout_module['code']) { ?>
+                                    <div class="well">
+                                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][code]" value="<?php echo $extension['code']; ?>">
+                                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][sort_order]" value="<?php echo $layout_module['sort_order']; ?>">
+                                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][position]" value="<?php echo $layout_module['position']; ?>">
+                                        <i class="fa fa-puzzle-piece"></i> <?php echo spilitName($extension['name']); ?> <span style="float: right;display: block;"><i class="fa fa-trash"></i></span>
+                                    </div>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <?php foreach ($extension['module'] as $module) { ?>
+                                    <?php if ($module['code'] == $layout_module['code']) { ?>
+                                        <div class="well">
+                                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][code]" value="<?php echo $module['code']; ?>">
+                                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][sort_order]" value="<?php echo $layout_module['sort_order']; ?>">
+                                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][position]" value="<?php echo $layout_module['position']; ?>">
+                                            <i class="fa fa-puzzle-piece"></i> <?php echo spilitName($module['name']); ?> <span style="float: right;display: block;"><i class="fa fa-trash"></i></span>
+                                        </div>
+                                    <?php } ?>
+                                <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+                <?php } ?>
+            </div>
+            <div class="clearfix"></div>
+            <div class="box-x" style="min-height: 100px;margin: 10px 0;" id="content_bottom_builder" data-position="content_bottom">
+                <?php foreach ($layout_modules as $key => $layout_module) { ?>
+                    <?php if($layout_module['position'] == 'content_bottom') { ?>
+                        <?php foreach ($extensions as $extension) { ?>
+                            <?php if (!$extension['module']) { ?>
+                                <?php if ($extension['code'] == $layout_module['code']) { ?>
+                                    <div class="well">
+                                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][code]" value="<?php echo $extension['code']; ?>">
+                                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][sort_order]" value="<?php echo $layout_module['sort_order']; ?>">
+                                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][position]" value="<?php echo $layout_module['position']; ?>">
+                                        <i class="fa fa-puzzle-piece"></i> <?php echo spilitName($extension['name']); ?> <span style="float: right;display: block;"><i class="fa fa-trash"></i></span>
+                                    </div>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <?php foreach ($extension['module'] as $module) { ?>
+                                    <?php if ($module['code'] == $layout_module['code']) { ?>
+                                        <div class="well">
+                                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][code]" value="<?php echo $module['code']; ?>">
+                                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][sort_order]" value="<?php echo $layout_module['sort_order']; ?>">
+                                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][position]" value="<?php echo $layout_module['position']; ?>">
+                                            <i class="fa fa-puzzle-piece"></i> <?php echo spilitName($module['name']); ?> <span style="float: right;display: block;"><i class="fa fa-trash"></i></span>
+                                        </div>
+                                    <?php } ?>
+                                <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="box-x" style="min-height: 600px;" id="content_right_builder" data-position="column_right">
+                <?php foreach ($layout_modules as $key => $layout_module) { ?>
+                    <?php if($layout_module['position'] == 'column_right') { ?>
+                        <?php foreach ($extensions as $extension) { ?>
+                            <?php if (!$extension['module']) { ?>
+                                <?php if ($extension['code'] == $layout_module['code']) { ?>
+                                    <div class="well">
+                                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][code]" value="<?php echo $extension['code']; ?>">
+                                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][sort_order]" value="<?php echo $layout_module['sort_order']; ?>">
+                                        <input type="hidden" name="layout_module[<?php echo md5($extension['code'].$extension['name']);?>][position]" value="<?php echo $layout_module['position']; ?>">
+                                        <i class="fa fa-puzzle-piece"></i> <?php echo spilitName($extension['name']); ?> <span style="float: right;display: block;"><i class="fa fa-trash"></i></span>
+                                    </div>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <?php foreach ($extension['module'] as $module) { ?>
+                                    <?php if ($module['code'] == $layout_module['code']) { ?>
+                                        <div class="well">
+                                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][code]" value="<?php echo $module['code']; ?>">
+                                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][sort_order]" value="<?php echo $layout_module['sort_order']; ?>">
+                                            <input type="hidden" name="layout_module[<?php echo md5($module['code'].strip_tags($module['name']));?>][position]" value="<?php echo $layout_module['position']; ?>">
+                                            <i class="fa fa-puzzle-piece"></i> <?php echo spilitName($module['name']); ?> <span style="float: right;display: block;"><i class="fa fa-trash"></i></span>
+                                        </div>
+                                    <?php } ?>
+                                <?php } ?>
+                            <?php } ?>
+                        <?php } ?>
+                    <?php } ?>
+                <?php } ?>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div style="padding: 10px">
+            <div style="padding: 10px;background: rgba(128, 128, 128, 0.54);text-transform: uppercase;text-align: center;">footer</div>
+        </div>
+    </div>
+    <div class="col-md-3 right">
+        <div class="x_content">
+            <!-- start accordion -->
+            <div class="accordion" id="accordion1" role="tablist" aria-multiselectable="true">
+                <?php foreach ($extensions as $extension) { ?>
+                <div class="panel">
+                    <a class="panel-heading collapsed" role="tab" id="heading-module-<?php echo $extension['code']?>" data-toggle="collapse" data-parent="#accordion1" href="#collapse-<?php echo $extension['code']?>" aria-expanded="false" aria-controls="collapseOne">
+                        <h4 class="panel-title"><?php echo strip_tags($extension['name'])?></h4>
+                    </a>
+                    <div id="collapse-<?php echo $extension['code']?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+                        <div class="panel-body">
+                            <ul class="list-sub-module">
+                                <?php if (!$extension['module']) { ?>
+                                    <li data-parent="<?php echo strip_tags($extension['name'])?>" data-name="<?php echo spilitName(strip_tags($extension['name']), true)?>" data-code="<?php echo $extension['code']?>"><i class="fa fa-arrows"></i><span class="content"><?php echo strip_tags($extension['name'])?></span></li>
+                                <?php } else { ?>
+                                    <?php foreach ($extension['module'] as $module) { ?>
+                                        <li data-parent="<?php echo strip_tags($extension['name'])?>" data-name="<?php echo spilitName(strip_tags($module['name']), true)?>" data-code="<?php echo $module['code']?>"><i class="fa fa-arrows"></i><span class="content"><?php echo spilitName(strip_tags($module['name']), true)?></span></li>
+                                    <?php }  ?>
+                                <?php }  ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
+            </div>
+            <!-- end of accordion -->
+        </div>
+    </div>
+</div>
+</form>
+<?php if(!isset($ajax)) { ?>
+<script>
+    $(function(){
+        var spiner_html = '<span class="mif-spinner mif-ani-spin" style="position: absolute;top: 30%; left:50%;z-index:9999;font-size: 6em;"></span>';
+
+        var container_composer          = $(".layout-composer");
+        var container_header_composer   = $(".header-composer");
+        var container_left      = document.getElementById("content_left_builder");
+        var container_right     = document.getElementById("content_right_builder");
+        var container_top       = document.getElementById("content_top_builder");
+        var container_bottom    = document.getElementById("content_bottom_builder");
+
+        $(".list-sub-module").each(function(){
+            var item = $(this);
+            Sortable.create(item[0], {
+                animation: 150, //
+                draggable: "li",
+                handle: "li",
+                group: {
+                    name: 'layout',
+                    pull: 'clone'
+                },
+                // dragging ended
+                onEnd: function (/**Event*/evt) {
+                    evt.oldIndex;  // element's old index within parent
+                    evt.newIndex;  // element's new index within parent
+                },
+                // Element is dropped into the list from another list
+                onAdd: function (/**Event*/evt) {
+                    var itemEl = evt.item;  // dragged HTMLElement
+                    evt.from;  // previous list
+                    // + indexes from onEnd
+                },
+                // Changed sorting within list
+                onUpdate: function (/**Event*/evt) {
+                    var itemEl = evt.item;  // dragged HTMLElement
+                    // + indexes from onEnd
+                }
+            });
+        });
+
+        var left    = initSort(container_left);
+        var right   = initSort(container_right);
+        var top     = initSort(container_top);
+        var bottom  = initSort(container_bottom);
+
+        function initSort(container){
+            return Sortable.create(container, {
+                animation: 150, //
+                draggable: ".well",
+                group: 'layout',
+                onUpdate: function (evt/**Event*/){
+                    var item = evt.item; // the current dragged HTMLElement
+                },
+                // Event when you move an item in the list or between lists
+                onMove: function (/**Event*/evt) {
+                    // Example: http://jsbin.com/tuyafe/1/edit?js,output
+                    evt.dragged; // dragged HTMLElement
+                    evt.draggedRect; // TextRectangle {left, top, right и bottom}
+                    evt.related; // HTMLElement on which have guided
+                    evt.relatedRect; // TextRectangle
+                    // return false; — for cancel
+                },
+                // dragging started
+                onStart: function (/**Event*/evt) {
+                    onStartMoving(evt);
+                    evt.oldIndex;  // element index within parent
+                },
+                // dragging ended
+                onEnd: function (/**Event*/evt) {
+                    evt.oldIndex;  // element's old index within parent
+                    evt.newIndex;  // element's new index within parent
+                    onStopMoving(evt);
+                },
+                // Element is dropped into the list from another list
+                onAdd: function (/**Event*/evt) {
+                    var itemEl = evt.item;  // dragged HTMLElement
+                    evt.from;  // previous list
+                    // + indexes from onEnd
+                    onStartReset(evt);
+
+                    if($(evt.item)[0].localName == 'li'){
+                        var to_container   = evt.to;
+                        // dragged from list modules
+                        var module_name   = $(evt.item).data('name');
+                        var module_code   = $(evt.item).data('code');
+                        var module_parent = $(evt.item).data('parent');
+
+                        var position = $(to_container).data('position');
+                        var hash = $.md5(module_name+module_code+position);
+
+                        var template = '<div class="well">'
+                            +'<input type="hidden" name="layout_module['+hash+'][code]" value="'+module_code+'">'
+                            +'<input type="hidden" name="layout_module['+hash+'][sort_order]" value="">'
+                            +'<input type="hidden" name="layout_module['+hash+'][position]" value="'+position+'">'
+                            +'<i class="fa fa-puzzle-piece"></i> <span class="label-module">'+module_parent+' </span><br><span> '+module_name+'</span> <span style="float: right;display: block;"><i class="fa fa-trash"></i></span>'
+                            +'</div>';
+
+                        $(evt.item).remove();
+
+                        $(to_container).append(template);
+
+                        resetSort($(to_container));
+                        resetPosition($(to_container));
+                        onRemoveClick();
+                    }
+                },
+            });
+        }
+
+        function onStartMoving(evt){
+            $(".layout-composer").find(".box-x").addClass('listening');
+        }
+
+        function onStopMoving(evt){
+            $(".layout-composer").find(".box-x").removeClass('listening');
+            // reset sort order of container
+            onStartReset(evt);
+        }
+
+        function onStartReset(evt){
+            var from_container = evt.from;
+            var to_container   = evt.to;
+
+            if(evt.from.id != evt.to.id){
+                resetSort($(from_container));
+                resetSort($(to_container));
+                resetPosition($(to_container));
+            }else{
+                resetSort($(to_container));
+            }
+        }
+
+        function resetPosition(container){
+            var position = container.data("position");
+            container.find(".well").each(function(){
+                $(this).find("input[name*=position]").val(position);
+            });
+        }
+
+        function resetSort(container){
+            var i = 0;
+
+            container.find(".well").each(function(){
+                $(this).find("input[name*=sort_order]").val(i);
+                i++;
+            });
+        }
+
+        function onRemoveClick(){
+            $(".well").delegate(".fa.fa-trash", "click", function(e){
+                var current_container = $(this).closest('.box-x');
+                $(this).closest('.well').remove();
+                resetSort(current_container);
+            });
+        }
+
+        onRemoveClick();
+
+        function getModule(layout_id, position){
+            container_composer.prepend(spiner_html);
+            container_composer.find(".right").css("opacity", "0.5");
+            container_composer.find(".left").css("opacity", "0.5");
+            return  $.ajax({
+                type: 'POST',
+                url: 'index.php?route=module/kuteshop_setting_v2/visual_composer&token=<?php echo $token?>',
+                data: 'ajax=true&position='+position+'&layout_id='+layout_id+'&token=<?php echo $token?>',
+            });
+        }
+
+        $(".selection-layout2").select2({}).on('change', function(e){
+
+            var layout_id = $(e.currentTarget).val();
+            var ajax_content_top        = getModule(layout_id, 'content_top');
+            var ajax_content_bottom     = getModule(layout_id, 'content_bottom');
+            var ajax_content_left       = getModule(layout_id, 'column_left');
+            var ajax_content_right      = getModule(layout_id, 'column_right');
+
+            $.when(ajax_content_top, ajax_content_bottom, ajax_content_left, ajax_content_right).done(function(data_top, data_bottom, data_left, data_right) {
+                // Handle data from both Ajax calls
+                $(container_top).html(data_top[0]);
+                $(container_bottom).html(data_bottom[0]);
+                $(container_left).html(data_left[0]);
+                $(container_right).html(data_right[0]);
+
+                container_composer.find(".mif-spinner").remove();
+                container_composer.find(".right").css("opacity", "1");
+                container_composer.find(".left").css("opacity", "1");
+
+                onRemoveClick();
+            })
+        });
+
+        $(".save-layout-module").on('click', function(){
+            var data = container_composer.find("input").serialize();
+            var layout_id = $(".selection-layout2 option:selected").val();
+            container_header_composer.find(".msg").hide();
+            $.ajax({
+                type: 'POST',
+                url: 'index.php?route=module/kuteshop_setting_v2/save_module&token=<?php echo $token?>',
+                data: data+'&layout_id='+layout_id+'&token=<?php echo $token?>',
+                success: function(data){
+                    container_header_composer.find(".msg").show();
+                    setTimeout(function(){
+                        container_header_composer.find(".msg").hide();
+                    }, 5000);
+                }
+            });
+        });
+    });
+</script>
+<?php } ?>

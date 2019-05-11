@@ -1,0 +1,14 @@
+<div id="cart-block" class="col-xs-5 col-sm-2 shopping-cart-box">
+
+</div>
+<div style="display: none;"><?php echo $cart; ?></div>
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function(){
+    $("#cart-block").bind("appear", function(){
+        cart.refresh(".shopping-cart-box");
+    });
+});
+//]]>
+</script>
+

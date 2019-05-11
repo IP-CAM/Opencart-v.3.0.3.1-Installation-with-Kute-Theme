@@ -1,0 +1,38 @@
+<div id="home-slider">
+    <div class="container">
+        <div class="row">
+            <?php if($displayed_vertical_menu) { ?>
+            <div class="col-sm-3 slider-left">
+                <?php echo $Loader->block('module/verticalmenu')->setTemplate('vertical_menu.phtml')->setData($data)->toHtml(); ?>
+            </div>
+            <?php } ?>
+            <div class="col-sm-<?php echo ($displayed_vertical_menu ? '9 shift-left-1' : '12')?> header-top-right">
+                <?php if(isset($image_left)) {?>
+                <div class="header-banner banner-opacity left">
+                    <a href="<?php echo $link_image_left;?>"><img alt="" src="<?php echo $image_left?>" /></a>
+                </div>
+                <?php }?>
+                <div class="homeslider" <?php echo (isset($image_left) ? '' : 'style="width:100% !important;"')?>>
+                    <div class="content-slide">
+                        <ul id="contenhomeslider">
+                            <?php foreach ($banners as $banner) { ?>
+                                <li class="item">
+                                    <?php if ($banner['link']) { ?>
+                                        <a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" /></a>
+                                    <?php } else { ?>
+                                        <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" />
+                                    <?php } ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+                <?php if(isset($image_right)) {?>
+                <div class="header-banner banner-opacity right">
+                    <a href="<?php echo $link_image_right;?>"><img alt="" src="<?php echo $image_right?>" /></a>
+                </div>
+                <?php }?>
+            </div>
+        </div>
+    </div>
+</div>

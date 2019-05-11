@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Ocivity3 Core</name>
+    <code>ocivity3-core</code>
+    <version>1.0</version>
+    <author>anh.to87@gmail.com</author>
+    <link>http://www.opencart.com</link>
+    <!-- FIX duplicated module of system core -->
+    <file path="admin/controller/design/layout.php">
+        <operation>
+            <search>
+                <![CDATA[foreach ($extensions as $code)]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+        $extensions = array_unique($extensions);
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="system/engine/loader.php">
+        <operation>
+            <search>
+                <![CDATA[extract($data);]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+			// Add more varible before extract data to default view of opencart
+			if (isset($data['Ocart'])) {
+			    trigger_error('Error: Could not use varible $data[\'Ocart\']!');
+			}
+			if (isset($data['Loader'])) {
+			    trigger_error('Error: Could not use varible $data[\'Loader\']!');
+			}
+			$data['data']   = $data;
+			$data['Ocart']  = $this->registry->get('ocart');
+			$data['Loader'] = $this->registry->get('load');
+			$data['translator'] = $this->registry->get('translator');
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search regex="true">
+                <![CDATA[~public function model\((.*?)\)~]]>
+            </search>
+            <add position="replace">
+                <![CDATA[public function ___model($1)]]>
+            </add>
+        </operation>
+        <operation>
+            <search regex="true">
+                <![CDATA[~public function ___model\((.*?)\)~]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+    public function block($block) {
+		$app_core_path      = DIR_OCIVITY3 . Ocart::APP_CORE_PATH . ($this->registry->get('ocart')->isAdmin() ? 'Adminhtml/' : '');
+		$app_local_path     = DIR_OCIVITY3 . Ocart::APP_LOCAL_PATH . ($this->registry->get('ocart')->isAdmin() ? 'Adminhtml/' : '');
+
+		$block_path = explode("/", $block);
+        $module = ucfirst($block_path[0]);
+
+		if(strpos($block_path[1], "_") > -1) {
+		    $block_child_path = $this->_getCameCasePath($block_path[1], false);
+		    $block_file       = $module . "/Block/" . $block_child_path['file'] . ".php";
+		    $block_class      = 'Block' . $module . $block_child_path['class'];
+		    $block_alias      = 'block_' . strtolower($module) . '_' . $block_child_path['alias'];
+		} else {
+		    $block_file       = $module . "/Block/" . ucfirst($block_path[1]) . ".php";
+		    $block_class      = 'Block' . $module . ucfirst($block_path[1]);
+		    $block_alias      = 'block_' . str_replace('/', '_', $block);
+		}
+
+        $flag_loaded_block = false;
+        $flag_loaded_core  = false;
+
+		if(file_exists($app_local_path . $block_file)) {
+		    include_once(modification($app_local_path . $block_file));
+            $flag_loaded_block = true;
+		} else if(file_exists($app_core_path . $block_file)) {
+		    include_once(modification($app_core_path . $block_file));
+            $flag_loaded_block = $flag_loaded_core = true;
+		}
+
+		if($flag_loaded_block) {
+            if(class_exists($block_class)) {
+                $objBlock = new $block_class($this->registry);
+                $objBlock->setAliasBlock($block);
+
+                return $objBlock;
+            }
+		} else {
+            $file = DIR_APPLICATION . 'block/' . $block . '.php';
+            $class = 'Block' . preg_replace('/[^a-zA-Z0-9]/', '', $block);
+
+            if (file_exists($file)) {
+                include_once(modification($file));
+
+                $this->registry->set('block_' . str_replace('/', '_', $block), new $class($this->registry));
+            } else {
+                trigger_error('Error: Could not load block ' . $file . '!');
+                return false;
+            }
+		}
+	}
+
+	public function model($model) {
+		$app_core_path      = DIR_OCIVITY3 . Ocart::APP_CORE_PATH . ($this->registry->get('ocart')->isAdmin() ? 'Adminhtml/' : '');
+		$app_local_path     = DIR_OCIVITY3 . Ocart::APP_LOCAL_PATH . ($this->registry->get('ocart')->isAdmin() ? 'Adminhtml/' : '');
+
+		$model_path = explode("/", $model);
+        $module = ucfirst($model_path[0]);
+
+		if(strpos($model_path[1], "_") > -1) {
+		    $model_child_path = $this->_getCameCasePath($model_path[1], false);
+		    $model_file       = $module . "/Model/" . $model_child_path['file'] . ".php";
+		    $model_class      = 'Model' . $module . $model_child_path['class'];
+		    $model_alias      = 'model_' . strtolower($module) . '_' . $model_child_path['alias'];
+		    $resource_file    = $module . "/Model/" . $model_child_path['file'] .'/Resource.php';
+		} else {
+		    $model_file       = $module . "/Model/" . ucfirst($model_path[1]) . ".php";
+		    $model_class      = 'Model' . $module . ucfirst($model_path[1]);
+		    $model_alias      = 'model_' . str_replace('/', '_', $model);
+		    $resource_file    = $module . '/Model/'.ucfirst($model_path[1]).'/Resource.php';
+		}
+
+        $flag_loaded_model = false;
+        $flag_loaded_core  = false;
+
+		if(file_exists($app_local_path . $model_file)) {
+		    include_once(modification($app_local_path . $model_file));
+            $flag_loaded_model = true;
+		} else if(file_exists($app_core_path . $model_file)) {
+		    include_once(modification($app_core_path . $model_file));
+            $flag_loaded_model = $flag_loaded_core = true;
+		}
+
+		if($flag_loaded_model) {
+            if($flag_loaded_core == false) {
+                if(file_exists($app_local_path . $resource_file)) {
+				    include_once(modification($app_local_path . $resource_file));
+			    }
+            } else {
+                if(file_exists($app_core_path . $resource_file)) {
+				    include_once(modification($app_core_path . $resource_file));
+			    }
+            }
+            if(class_exists($model_class)) {
+                $objModel = new $model_class($this->registry);
+                $this->registry->set($model_alias, $objModel);
+
+                return $objModel;
+            }
+		} else {
+            $file = DIR_APPLICATION . 'model/' . $model . '.php';
+            $class = 'Model' . preg_replace('/[^a-zA-Z0-9]/', '', $model);
+
+            if (file_exists($file)) {
+                include_once(modification($file));
+
+                $this->registry->set('model_' . str_replace('/', '_', $model), new $class($this->registry));
+            } else {
+                trigger_error('Error: Could not load model ' . $file . '!');
+                exit();
+            }
+		}
+	}
+
+	protected function _getCameCasePath($path) {
+	    $path = preg_replace("/_/", " ", $path);
+	    $path = ucwords($path);
+
+	    return array(
+	        'alias' => preg_replace("/ /", "_", strtolower($path)),
+	        'file'  => preg_replace("/ /", "/", $path),
+	        'class' => preg_replace("/ /", "", $path)
+	    );
+	}
+
+	public function ___model($1)]]>
+            </add>
+        </operation>
+    </file>
+    <file path="system/library/response.php">
+        <operation>
+            <search>
+                <![CDATA[echo $output;]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            global $key_cached, $registry;
+            $useCached = true;
+
+			if (isset($_SERVER['REQUEST_METHOD']) && strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+				$useCached = false;
+			}
+
+			if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+				$useCached = false;
+			}
+
+            if ($registry->get('customer') && $useCached) {
+                $registry->get('cache')->set($key_cached, $output);
+            }
+
+            $output = Ocart::compressOutput($output);
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="system/engine/action.php">
+        <operation>
+            <search regex="true">
+                <![CDATA[~function execute\((.*?)\)~]]>
+            </search>
+            <add position="replace">
+                <![CDATA[function _execute($1)]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[private $class;]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+	private $route;
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$path = '';]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+		$this->route = $route;
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search regex="true">
+                <![CDATA[~public function _execute\((.*?)\)~]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+    public function execute($registry) {
+		// Stop any magical methods being called
+		if (substr($this->method, 0, 2) == '__') {
+			return false;
+		}
+
+		if (is_file($this->file)) {
+		    $kute_setting = $registry->get('config')->get('ocivity3_kuteshop_theme');
+            $data = "";
+			$useCached = false;
+            $debug_mode = false;
+			$ignoreRoutes = array('checkout/checkout', 'checkout/cart/remove', 'checkout/cart/add', 'checkout/cart/update');
+
+            $controller = explode('/', $this->route);
+
+			if (!in_array($this->route, $ignoreRoutes)) {
+				$useCached = true;
+			}
+
+            if(strpos($this->class, "dquickcheckout") > -1) {
+				$useCached = false;
+			}
+			if (isset($_SERVER['REQUEST_METHOD']) && strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+				$useCached = false;
+			}
+
+			if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+				$useCached = false;
+			}
+
+			if (!isset($kute_setting['cached'])) {
+			    $useCached = false;
+			}
+
+            if ($registry->get('customer') && $useCached) {
+                $array_key = array(
+                    'server_name'   => $_SERVER['SERVER_NAME'],
+                    'store_id'      => $registry->get('config')->get('config_store_id'),
+                    'currency'      => $registry->get('currency')->getCode(),
+                    'language'      => $registry->get('language')->get('code'),
+                    'class'         => $this->class,
+                    'method'        => $this->method,
+                    'args'          => $this->args,
+                    'route'         => $registry->get('request')->get
+                );
+                if ($debug_mode) {
+                    $key_cached = "page_".strtolower($this->class)."_".$this->method."_".md5(json_encode($array_key));
+                } else {
+                    $key_cached = "page_".md5(json_encode($array_key));
+                }
+
+                $data = $registry->get('cache')->get($key_cached);
+            }
+
+            if (empty($data)) {
+                include_once(modification($this->file));
+
+                $class = $this->class;
+
+                $controller = new $class($registry);
+
+                if (is_callable(array($controller, $this->method))) {
+                    $html = call_user_func(array($controller, $this->method), $this->args);
+                    if ($registry->get('customer') && $useCached) {
+                        $registry->get('cache')->set($key_cached, $html);
+                    }
+
+                    return $html;
+                } else {
+                    return false;
+                }
+            } else {
+                return $data;
+            }
+		} else {
+			return false;
+		}
+	}
+    public function _execute($1)
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="catalog/controller/common/content_top.php">
+        <operation>
+            <search>
+                <![CDATA[$this->load->model('design/layout');]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+        unset($this->session->data['elevator']);
+		unset($this->session->data['elevator_prev']);
+		unset($this->session->data['elevator_next']);]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/model/design/layout.php">
+        <operation>
+            <search>
+                <![CDATA[getLayoutModules]]>
+            </search>
+            <add position="replace">
+                <![CDATA[__getLayoutModules]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[public function __getLayoutModules]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+	public function getLayoutModules($layout_id) {
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "layout_module WHERE layout_id = '" . (int)$layout_id . "' ORDER BY sort_order ASC");
+
+		return $query->rows;
+	}
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="catalog/controller/module/*.php">
+        <operation>
+            <search>
+                <![CDATA[public function index($setting) {]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+		$data['setting'] = $setting;]]>
+            </add>
+        </operation>
+    </file>
+    <file path="admin/view/template/common/menu.tpl">
+        <operation>
+            <search regex="true"><![CDATA[~<li(.*?)id="(.*?)reports(.*?)"(.*?)>~]]></search>
+            <add position="before"><![CDATA[
+				<li id="kuteshop-setting"><a class="parent"><i class="fa fa-paint-brush fa-fw"></i> <span><?php echo 'Kuteshop Setting'; ?></span></a>
+                    <ul>
+                        <li><a href="<?php echo $kutesetting_url_modules; ?>"><?php echo 'Modules'; ?></a></li>
+                        <li><a href="<?php echo $kutesetting_url_layout; ?>"><?php echo 'Layouts'; ?></a></li>
+                        <li><a href="<?php echo $kutesetting_url_clean_cached; ?>"><?php echo 'Clean Cached'; ?></a></li>
+                        <li><a href="<?php echo $kutesetting_url_configuration; ?>"><?php echo 'Configuration'; ?></a></li>
+                    </ul>
+                </li>
+                <li$1id="$2reports$3"$4>
+			]]></add>
+        </operation>
+    </file>
+    <file path="admin/controller/common/menu.php">
+        <operation>
+            <search><![CDATA[$data['openbay_link_amazonus_links']]]></search>
+            <add position="after"><![CDATA[
+				$data['kutesetting_url_modules'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'].'&exclude', 'SSL');
+				$data['kutesetting_url_layout'] = $this->url->link('design/layout', 'token=' . $this->session->data['token'].'&exclude', 'SSL');
+				$data['kutesetting_url_clean_cached'] = $this->url->link('module/kuteshop_setting_v2/cleanCached', 'token=' . $this->session->data['token'].'&exclude', 'SSL');
+				$data['kutesetting_url_configuration'] = $this->url->link('module/kuteshop_setting_v2', 'token=' . $this->session->data['token'], 'SSL');
+			]]></add>
+        </operation>
+    </file>
+    <file path="admin/controller/module/{advanced_filter,advanced_newsletter,bestseller,brand_tab,custom_menu,kuteshop_setting,kuteshop_setting_v2,latest,newspecial,popular_category,popular_products_tab,smarttab,special}.php">
+        <operation>
+            <search><![CDATA[$this->session->data['token']]]></search>
+            <add position="replace"><![CDATA[$this->session->data['token'].'&exclude']]></add>
+        </operation>
+    </file>
+    <file path="catalog/controller/checkout/checkout.php">
+        <operation>
+            <search><![CDATA[if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/checkout/checkout.tpl')) {]]></search>
+            <add position="replace"><![CDATA[
+        if($this->config->get('d_quickcheckout_status')){
+            $template = 'd_quickcheckout';
+        }else{
+            $template = 'checkout';
+        }
+
+        if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/checkout/'.$template.'.tpl')) {
+            $this->template = $this->config->get('config_template') . '/template/checkout/'.$template.'.tpl';
+        } else {
+            $this->template = 'default/template/checkout/'.$template.'.tpl';
+        }
+        $this->response->setOutput($this->load->view($this->template, $data));return;
+        if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/checkout/checkout.tpl')) {
+        ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[$data['header'] = $this->load->controller('common/header');]]></search>
+            <add position="before"><![CDATA[
+		if($this->config->get('d_quickcheckout_status')){
+			$data['d_quickcheckout'] = $this->load->controller('module/d_quickcheckout');
+		}
+		]]></add>
+        </operation>
+    </file>
+    <file path="system/library/tax.php">
+        <operation>
+            <search><![CDATA[final class Tax {]]></search>
+            <add position="after"><![CDATA[
+	public function clearRates(){
+		$this->tax_rates = array();
+	}
+			]]></add>
+        </operation>
+
+    </file>
+    <file path="catalog/view/theme/*/template/payment/cheque.tpl">
+        <operation>
+            <search><![CDATA[$('#button-confirm').on('click', function() {]]></search>
+            <add position="replace"><![CDATA[$('#button-confirm').on('click', function(e) {
+	e.stopImmediatePropagation()]]></add>
+        </operation>
+    </file>
+    <file path="catalog/view/theme/*/template/payment/pp_pro.tpl">
+        <operation>
+            <search><![CDATA[$('#button-confirm').bind('click', function() {]]></search>
+            <add position="replace"><![CDATA[$('#button-confirm').bind('click', function(e) {
+	e.stopImmediatePropagation()]]></add>
+        </operation>
+    </file>
+</modification>

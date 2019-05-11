@@ -1,0 +1,43 @@
+{#
+[UPI-Payment] is a Payment Module to Integrate
+UPI - [ Unified Payments Interface ] A Service From NPCI - [ National Payments Corporation Of India ]
+as a Payment Gateway Method in OPENCART - 3.0.2.0 - 3.0.3.0 - 3.0.3.1
+
+Developed By:
+Mr. TARAKESHWAR GAJAM
+ABCD PAYMENT SERVICES, #4-1-71/416, Sai Durga Gardens, Nacharam Main Road, Medchal-Malkajgiri District, Telangana State - 500076, India.
+URL: https://www.abcd-pay.com , E-Mail : admin@abcd-pay.com, Mobile : 0091-0-8106877688.
+#}
+
+{#
+File Path = "catalog/view/theme/default/template/extension/payment/abcdpayupiqrshow.twig"
+#}
+
+<div class="well well-sm" style="font-weight: bold">
+    <table style="border: 0">
+        <tr>
+            <td>Order-ID&nbsp:&nbsp{{ orderid }}&nbsp:&nbsp{{ text_upi_payment }}&nbsp:&nbsp</td>
+            <td id="countdowntimer" name="countdowntimer"></td>
+        </tr>
+    </table>
+</div>
+<div class="container-fluid">
+    <img src="{{ upiqrimagepath }}">
+</div>
+<div class="well well-sm" style="font-weight: bold">
+    {{ text_payment_note }}<br/>{{ text_payment_info }}
+</div>
+<script type="text/javascript">
+    setTimeout(function() {
+            location='{{ successpage }}'
+        }, {{ timeout }});
+    var timeleft = 180;
+    var downloadTimer = setInterval(function(){
+        document.getElementById("countdowntimer").innerHTML = timeleft;
+        timeleft -= 1;
+        if(timeleft <= 0){
+            clearInterval(downloadTimer);
+            document.getElementById("countdowntimer").innerHTML = "E-Mail Sent"
+        }
+    }, 1000);
+</script>

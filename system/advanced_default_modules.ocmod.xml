@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Advanced Default Modules</name>
+    <code>adv_default_modules</code>
+    <version>1.0</version>
+    <author>anh.to87@gmail.com</author>
+    <link>http://www.refreshux.com</link>
+    <file path="admin/controller/module/{latest,bestseller,special,featured}.php">
+        <operation>
+            <search regex="true">
+                <![CDATA[~module\/(.*?).tpl~]]>
+            </search>
+            <add position="replace">
+                <![CDATA[module/advanced_default_modules/new$1.tpl]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[if (isset($this->request->post['name'])) {]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+        $data['token'] = $this->request->get['token'];
+        $this->load->model('tool/image');
+        if (isset($this->request->post['image']) && is_file(DIR_IMAGE . $this->request->post['image'])) {
+			$data['thumb'] = $this->model_tool_image->resize($this->request->post['image'], 100, 100);
+			$data['image'] = '';
+		} elseif (!empty($module_info) && isset($module_info['image']) && is_file(DIR_IMAGE . $module_info['image'])) {
+			$data['thumb'] = $this->model_tool_image->resize($module_info['image'], 100, 100);
+			$data['image'] = $module_info['image'];
+		} else {
+			$data['thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+			$data['image'] = '';
+		}
+		if (isset($this->request->post['category_ids'])) {
+			$category_ids = $this->request->post['category_ids'];
+		} elseif (!empty($module_info) && isset($module_info['category_ids'])) {
+			$category_ids = $module_info['category_ids'];
+		} else {
+			$category_ids = array();
+		}
+		if (isset($this->request->post['banner_id'])) {
+			$data['banner_id'] = $this->request->post['banner_id'];
+		} elseif (!empty($module_info) && isset($module_info['banner_id'])) {
+			$data['banner_id'] = $module_info['banner_id'];
+		} else {
+			$data['banner_id'] = 0;
+		}
+
+		$data['category_ids'] = array();
+		$this->load->model('catalog/category');
+		if(count($category_ids) > 0){
+            foreach($category_ids as $category_id) {
+                $data['category_ids'][] = $this->model_catalog_category->getCategory($category_id);
+            }
+		}
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search>
+                <![CDATA[$data['entry_name'] = $this->language->get('entry_name');]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+        $this->language->load('catalog/product');
+        $data['entry_category'] = $this->language->get('entry_category');
+                ]]>
+            </add>
+        </operation>
+    </file>
+</modification>

@@ -1,0 +1,25 @@
+<div class="subscribe-me">
+    <h4 class="desktop">Super <br> FULL Page <span>Cached</span> X10</h4>
+    <h4 class="mobile-newsletter">Super FULL Page <span>Cached</span> X10</h4>
+    <h3>RTL <span>Supported</span></h3>
+    <a href="#close" class="sb-close-btn"><i class="fa fa-times"></i></a>
+    <span class="box html">minify html</span>
+    <span class="box css">minify css</span>
+    <span class="box js">minify js</span>
+    <div class="form">
+        <input type="text" name="email" placeholder="<?php echo $text_placeholder_input; ?>">
+        <input type="submit" class="enter-subscribe" value="<?php echo $text_button_submit; ?>">
+        <h6 class="version">KUTESHOP v1.2.4</h6>
+    </div>
+</div>
+
+<script type="text/javascript">
+    if(typeof AdvancedNewsletter != 'undefined'){
+        new AdvancedNewsletter({
+            container_id: '.subscribe-me',
+            input_id: 'input[name=email]',
+            submit_id: '.enter-subscribe',
+            display_as: true
+        });
+    }
+</script>

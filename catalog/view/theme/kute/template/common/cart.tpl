@@ -1,0 +1,1 @@
+<?php echo $Loader->block('common/cart')->setData($data)->toHtml();

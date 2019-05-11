@@ -1,0 +1,121 @@
+<?php echo $header; ?>
+    <div id="columns" class="container">
+        <ul class="breadcrumb">
+            <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+                <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+            <?php } ?>
+        </ul>
+        <div class="row"><?php echo $column_left; ?>
+            <?php if ($column_left && $column_right) { ?>
+                <?php $class = 'col-sm-6'; ?>
+            <?php } elseif ($column_left || $column_right) { ?>
+                <?php $class = 'col-sm-9'; ?>
+            <?php } else { ?>
+                <?php $class = 'col-sm-12'; ?>
+            <?php } ?>
+            <div id="content" class="<?php echo $class; ?> view-product-list"><?php echo $content_top; ?>
+                <h2 class="page-heading"><span class="page-heading-title"><?php echo $heading_title; ?></span></h2>
+
+                <?php if ($products) { ?>
+                    <ul class="row product-list grid">
+                        <?php echo $products_list_html?>
+                    </ul>
+
+                    <ul class="display-product-option">
+                        <li class="view-as-grid selected"><span id="grid-view" title="<?php echo $button_grid; ?>"><i class="fa fa-th"></i></span></li>
+                        <li class="view-as-list"><span id="list-view" title="<?php echo $button_list; ?>"><i class="fa fa-th-list"></i></span></li>
+                    </ul>
+
+                    <div class="sortPagiBar">
+                        <div class="bottom-pagination"><?php echo $pagination; ?></div>
+                        <div class="show-product-item">
+                            <select id="input-limit" onchange="location = this.value;">
+                                <?php foreach ($limits as $limits) { ?>
+                                    <?php if ($limits['value'] == $limit) { ?>
+                                        <option value="<?php echo $limits['href']; ?>" selected="selected"><?php echo 'Show '.$limits['text']; ?></option>
+                                    <?php } else { ?>
+                                        <option value="<?php echo $limits['href']; ?>"><?php echo $limits['text']; ?></option>
+                                    <?php } ?>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class="sort-product">
+                            <select id="input-sort" onchange="location = this.value;">
+                                <?php foreach ($sorts as $sorts) { ?>
+                                    <?php if ($sorts['value'] == $sort . '-' . $order) { ?>
+                                        <option value="<?php echo $sorts['href']; ?>" selected="selected"><?php echo $sorts['text']; ?></option>
+                                    <?php } else { ?>
+                                        <option value="<?php echo $sorts['href']; ?>"><?php echo $sorts['text']; ?></option>
+                                    <?php } ?>
+                                <?php } ?>
+                            </select>
+                            <div class="sort-product-icon">
+                                <i class="fa fa-sort-alpha-asc"></i>
+                            </div>
+                        </div>
+                    </div>
+                <?php } else { ?>
+                    <p><?php echo $text_empty; ?></p>
+                <?php } ?>
+                <?php echo $content_bottom; ?></div>
+            <?php echo $column_right; ?></div>
+    </div>
+    <script type="text/javascript"><!--
+        jQuery(document).ready(function($){
+            $('.display-product-option li.view-as-grid span').click(function(){
+                $('.row.product-list').removeClass('list');
+                $('.row.product-list').addClass('grid');
+                console.log('hi');
+            });
+            $('.display-product-option li.view-as-list span').click(function(){
+                $('.row.product-list').removeClass('grid');
+                $('.row.product-list').addClass('list');
+            });
+        });
+        $('#button-search').bind('click', function() {
+            url = 'index.php?route=product/search';
+
+            var search = $('#content input[name=\'search\']').prop('value');
+
+            if (search) {
+                url += '&search=' + encodeURIComponent(search);
+            }
+
+            var category_id = $('#content select[name=\'category_id\']').prop('value');
+
+            if (category_id > 0) {
+                url += '&category_id=' + encodeURIComponent(category_id);
+            }
+
+            var sub_category = $('#content input[name=\'sub_category\']:checked').prop('value');
+
+            if (sub_category) {
+                url += '&sub_category=true';
+            }
+
+            var filter_description = $('#content input[name=\'description\']:checked').prop('value');
+
+            if (filter_description) {
+                url += '&description=true';
+            }
+
+            location = url;
+        });
+
+        $('#content input[name=\'search\']').bind('keydown', function(e) {
+            if (e.keyCode == 13) {
+                $('#button-search').trigger('click');
+            }
+        });
+
+        $('select[name=\'category_id\']').on('change', function() {
+            if (this.value == '0') {
+                $('input[name=\'sub_category\']').prop('disabled', true);
+            } else {
+                $('input[name=\'sub_category\']').prop('disabled', false);
+            }
+        });
+
+        $('select[name=\'category_id\']').trigger('change');
+        --></script>
+<?php echo $footer; ?>

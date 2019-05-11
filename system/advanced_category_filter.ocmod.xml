@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Advanced Category Filter</name>
+    <code>adv_category_filter</code>
+    <version>1.0</version>
+    <author>anh.to87@gmail.com</author>
+    <link>http://www.refreshux.com</link>
+    <file path="catalog/controller/product/category.php">
+        <operation>
+            <search>
+                <![CDATA[$this->load->language('product/category');]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+        // Advanced Category Filter
+        $this->load->model('catalog/newproduct');
+        $this->load->model('module/advancedfilter');
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search trim="true" regex="true">
+                <![CDATA[~\$data\[(.*?)'products'(.*?)\](.*?)=(.*?)array\((.*?)\)(.*?);~]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            // Advanced Category Filter
+            $extra_filter_data = $this->model_module_advancedfilter->getFilterParams($this->request->get);
+
+            $data[$1'products'$2]$3=$4array($5)$6;
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search trim="true" regex="true">
+                <![CDATA[~\$product_total(.*?)=(.*?)\$this->model_catalog_product->getTotalProducts\((.*?)\)(.*?);~]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+            $filter_data = array_merge($filter_data, $extra_filter_data);
+
+            $product_total$1=$2$this->model_catalog_product->getTotalProducts($3)$4;
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search index="0" trim="true" regex="true">
+                <![CDATA[~model_catalog_product->get(.*?)Products~]]>
+            </search>
+            <add position="replace">
+                <![CDATA[model_catalog_newproduct->get$1Products]]>
+            </add>
+        </operation>
+        <operation>
+            <search index="0" trim="true" regex="true">
+                <![CDATA[~\$data\[(.*?)'sorts'(.*?)\](.*?)=(.*?)array\(\)(.*?);~]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $this->model_module_advancedfilter->getUrlSortParams($this->request->get, $url);
+            $data[$1'sorts'$2]$3=$4array()$5;
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search index="0" trim="true" regex="true">
+                <![CDATA[~\$data\[(.*?)'limits'(.*?)\](.*?)=(.*?)array\(\)(.*?);~]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $this->model_module_advancedfilter->getUrlSortParams($this->request->get, $url);
+            $data[$1'limits'$2]$3=$4array()$5;
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search index="0" trim="true" regex="true">
+                <![CDATA[~\$pagination(.*?)=(.*?)new(.*?)Pagination\(\)(.*?);~]]>
+            </search>
+            <add position="before">
+                <![CDATA[
+            $this->model_module_advancedfilter->getUrlSortParams($this->request->get, $url);
+            $pagination$1=$2new$3Pagination()$4;
+                ]]>
+            </add>
+        </operation>
+    </file>
+</modification>

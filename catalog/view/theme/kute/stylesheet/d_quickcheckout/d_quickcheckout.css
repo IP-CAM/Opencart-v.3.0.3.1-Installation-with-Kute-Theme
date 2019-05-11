@@ -1,0 +1,290 @@
+#d_quickcheckout {
+  /* login */
+
+  /* field */
+
+  /* payment address */
+
+  /* shipping method */
+
+  /* total */
+
+  /* payment */
+
+  /* helper */
+
+  /* preloader */
+
+}
+#d_quickcheckout .login-btn-group {
+  margin-bottom: 20px;
+}
+#d_quickcheckout #login_button_popup:hover,
+#d_quickcheckout #login_button_popup:active,
+#d_quickcheckout #login_button_popup:focus,
+#d_quickcheckout #login_button_popup.focus,
+#d_quickcheckout #login_button_popup.active,
+#d_quickcheckout #login_button_popup.hover {
+  outline: 0px !important;
+}
+#d_quickcheckout #login_social_login #d_social_login {
+  margin-bottom: 10px;
+}
+#d_quickcheckout .modal {
+  /* ... */
+
+  overflow-y: hidden;
+}
+#d_quickcheckout .col-md-0 {
+  display: none;
+}
+#d_quickcheckout .checkbox-input {
+  margin-bottom: 10px;
+}
+#d_quickcheckout .text-danger {
+  margin: 5px 0px 0px 0px;
+}
+#d_quickcheckout .list-group-item label,
+#d_quickcheckout .list-group-item {
+  cursor: pointer;
+  width: 100%;
+}
+#d_quickcheckout .list-group-item input[type=radio] {
+  display: none;
+}
+#d_quickcheckout .address-item {
+  white-space: pre;
+}
+#d_quickcheckout .control-label .text-danger {
+  text-align: left;
+}
+#d_quickcheckout #shipping_method .radio label,
+#d_quickcheckout #payment_method .radio label {
+  width: 100%;
+}
+#d_quickcheckout #shipping_method .radio label .price,
+#d_quickcheckout #payment_method .radio label .price {
+  float: right;
+}
+#d_quickcheckout .qc-totals .row:last-child {
+  border-top: 1px solid #efefef;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+#d_quickcheckout .qc-totals .row:last-child div,
+#d_quickcheckout .qc-totals .row:last-child label {
+  font-size: 16px;
+  font-weight: bold;
+}
+#d_quickcheckout .qc-quantity {
+  width: 30%;
+  min-width: 50px;
+}
+#d_quickcheckout .qc-product-qantity {
+  min-width: 38px;
+}
+#d_quickcheckout #payment_view #button-confirm,
+#d_quickcheckout #payment_view a,
+#d_quickcheckout #payment_view button,
+#d_quickcheckout #payment_view .btn,
+#d_quickcheckout #payment_view .btn-primary {
+  display: none !important;
+}
+#d_quickcheckout #payment_view #payment_modal #button-confirm,
+#d_quickcheckout #payment_view #payment_modal a,
+#d_quickcheckout #payment_view #payment_modal button,
+#d_quickcheckout #payment_view #payment_modal .btn,
+#d_quickcheckout #payment_view #payment_modal .btn-primary {
+  display: inline-block !important;
+}
+#d_quickcheckout .panel-body {
+  position: relative;
+}
+#d_quickcheckout .preloader {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  top: 0;
+  box-sizing: border-box;
+  display: none;
+}
+#d_quickcheckout .preloader .icon {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  margin-top: -50px;
+  margin-left: -50px;
+  width: 100px;
+  height: 100px;
+  color: #333333;
+}
+/* ==================================== Kute shop ======================================== */
+#d_quickcheckout .panel-default > .panel-heading{
+  background: none;
+  border: none;
+}
+#d_quickcheckout .panel-default{
+  border: none;
+  border-radius: 0;
+}
+#d_quickcheckout .panel-body{
+  border: 1px solid #dddddd; 
+}
+#d_quickcheckout .panel-default,
+#d_quickcheckout .form-control,
+#d_quickcheckout .btn-primary,
+#d_quickcheckout .input-group-sm > .form-control, #d_quickcheckout .input-group-sm > .input-group-addon, #d_quickcheckout .input-group-sm > .input-group-btn > .btn{
+  box-shadow: none;
+  border-radius: 0
+}
+#d_quickcheckout .btn-primary#qc_confirm_order{
+  background: #ff3366;
+  border: none;
+  text-transform: uppercase;
+  line-height: 30px;
+}
+#d_quickcheckout .panel-default > .panel-heading{
+  padding: 0 0;
+  background-color: #3399CC;
+  border-radius: 0;
+  height: 46px;
+}
+#d_quickcheckout .login-btn-group{
+  margin-bottom: 0;
+}
+#d_quickcheckout label{
+  font-size: 13px;
+}
+#d_quickcheckout .panel-title{
+  font-size: 18px;
+  color: #fff;
+  line-height: 46px;
+}
+#d_quickcheckout .panel-title span.text{
+  margin: 0 0 10px;
+  padding-left: 20px;
+}
+#d_quickcheckout .panel-title span.icon{
+  line-height: 46px;
+  margin-right: 0;
+  width: 60px;
+  background-color: rgb(92, 173, 214);
+  height: 46px;
+  text-align: center;
+  float: left;
+  font-size: 28px;
+}
+#d_quickcheckout .panel-title .fa {
+  font-size: 24px;
+  width: auto;
+}
+.title-left-background{
+  float: left;
+  height: 46px;
+}
+.title-left-background .slant-right{
+  box-shadow: rgb(92, 173, 214) -11px 0px 0px 0px;
+  border-left-width: 12px;
+  border-left-style: solid;
+  border-left-color: rgb(92, 173, 214);
+  border-top: 0 solid transparent;
+  border-bottom: 46px solid transparent;
+  -webkit-transition: all .15s;
+  -webkit-transition-property: left, right;
+  transition-property: left, right;
+  position: absolute;
+    width: 0;
+    height: 0;
+}
+#d_quickcheckout div.required .control-label:after {
+    content: '* ';
+    color: #F00;
+    font-weight: bold;
+}
+#d_quickcheckout div.required .control-label:before {
+    content:none;
+}
+#d_quickcheckout .btn-primary,#d_quickcheckout .btn-danger{
+  background-image: none;
+}
+#d_quickcheckout .btn-primary{
+  border-color: #229ac8;
+}
+#d_quickcheckout .btn-danger{
+  border-color: #da4f49;
+}
+#d_quickcheckout .input-group-sm > .form-control, #d_quickcheckout .input-group-sm > .input-group-addon, #d_quickcheckout .input-group-sm > .input-group-btn > .btn{
+  height: 35px;
+}
+#d_quickcheckout .form-control{
+  height: 37px;
+}
+#d_quickcheckout .form-horizontal .checkbox, #d_quickcheckout .form-horizontal .radio{
+  padding-left: 0;
+}
+#d_quickcheckout b, #d_quickcheckout strong{
+  vertical-align: middle;
+}
+#d_quickcheckout input[type=checkbox], #d_quickcheckout input[type=radio]{
+  margin-top: 2px;
+}
+#d_quickcheckout .qc-image a{
+  display: block;text-align: center;
+}
+#d_quickcheckout .qc-image a img{
+  display: inline-block;
+}
+#d_quickcheckout .form-horizontal#confirm_form .control-label{
+  padding: 0 0 10px;
+}
+.jquery-modal.blocker{
+  z-index: 9999;
+}
+#d_quickcheckout .btn-default{
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  background-image:none;
+}
+#d_quickcheckout .btn-primary.active, #d_quickcheckout .btn-primary.focus, #d_quickcheckout .btn-primary:active, #d_quickcheckout .btn-primary:focus, #d_quickcheckout .btn-primary:hover, #d_quickcheckout .open > .dropdown-toggle.btn-primary{
+  border: none;
+  box-shadow:none;
+  text-shadow:none;
+}
+#d_quickcheckout #login_view .btn{
+  padding: 15px 12px;
+  font-size: 13px;
+}
+.modal.fade.current{
+  opacity: 1;
+  overflow-y: hidden; 
+  width: 370px;
+}
+.modal.fade.current .modal-dialog{
+  webkit-transform: translate(0,0%); 
+  -ms-transform: translate(0,0%);
+  transform: translate(0,0%); 
+}
+.modal.fade.current .modal-content{
+  box-shadow: none;
+  border: none;
+}
+.modal.fade.current .modal-content .modal-header,
+.modal.fade.current .modal-content .modal-body{
+  padding-left: 0;
+  padding-right: 0;
+}
+.modal.fade.current .modal-content .modal-body{
+  padding-bottom: 0;
+}
+.modal.fade.current .modal-dialog{
+  margin: 0;
+  width: 100%;
+}
+.modal.fade.current .modal-header .close{display: none;}
+.modal.fade.current  a.close-modal{
+  top: 28px;
+  right: 25px;
+}

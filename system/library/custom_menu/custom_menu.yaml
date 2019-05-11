@@ -1,0 +1,90 @@
+# To edit this file, please use Sublime Text 2 or 3, PHPStorm. Do not try on Notepad
+# Use TAB to make space
+Electronics:
+  name: Electronics
+  link:
+  icon:mif-display
+Sport & Outdoors:
+  name: Sport & Outdoors
+  link:
+  icon:mif-directions-bike
+  child:
+      -
+        name: Tennis
+        link: #
+        child:
+          -
+            name: Coats & Jackets
+            link: #
+          -
+            name: Blouses &amp; Shirts
+          -
+            name: Tops &amp; Tees
+          -
+            name: Hoodies &amp; Sweatshirts    
+      -
+        name: Swimming
+        link: #  
+        child:
+          -
+            name: Dresses
+            link: 
+          -
+            name: Coats & Jackets
+            link: #
+          -
+            name: Blouses &amp; Shirts
+          -
+            name: Tops &amp; Tees
+          -
+            name: Hoodies &amp; Sweatshirts   
+      -
+        name: Shoes
+        link: #  
+        child:
+          -
+            name: Dresses
+            link: 
+          -
+            name: Coats & Jackets
+            link: #
+          -
+            name: Blouses &amp; Shirts
+          -
+            name: Tops &amp; Tees
+          -
+            name: Hoodies &amp; Sweatshirts        
+          -       
+            name: Intimates
+Smartphone &amp; Tablets:
+  name: Smartphone &amp; Tablets
+  link:
+  icon:mif-camera
+  child:
+Health &amp; Beauty Bags:
+  name: Health &amp; Beauty Bags
+  link:
+  icon:mif-medkit
+Toys &amp; Hobbies:
+  name: Toys &amp; Hobbies
+  link:
+  icon:mif-dribbble
+Computers &amp; Networking:
+  name: Computers &amp; Networking
+  link:
+  icon:mif-cabinet
+Laptops &amp; Accessories:
+  name: Laptops &amp; Accessories
+  link:
+  icon:mif-laptop
+Jewelry &amp; Watches:
+  name: Jewelry &amp; Watches
+  link:
+  icon:mif-shop
+Flashlights &amp; Lamps:
+  name: Flashlights &amp; Lamps
+  link:
+  icon:mif-lamp
+
+
+

@@ -1,0 +1,82 @@
+<div id="home-slider">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8" style="padding-right: 0px;">
+                <div class="homeslider">
+                    <div class="content-slide">
+                        <ul id="contenhomeslider-customPage">
+                            <?php foreach ($banners as $banner) { ?>
+                                <li>
+                                    <?php if ($banner['link']) { ?>
+                                        <a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" /></a>
+                                    <?php } else { ?>
+                                        <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" />
+                                    <?php } ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                        <div class="bx-control">
+                            <div class="slide-prev">
+                                <span id="bx-prev"></span>
+                            </div>
+                            <div id="bx-pager" class="slide-pager">
+                                  <a data-slide-index="0" href="">1</a>
+                                  <a data-slide-index="1" href="">2</a>
+                                  <a data-slide-index="2" href="">3</a>
+                            </div>
+                            <div class="slide-next">
+                                <span id="bx-next"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 group-banner-slider" style="padding-left: 2px;">
+                <div class="item banner-opacity">
+                    <a href="#"><img src="image/catalog/option6/banner9.jpg" alt="Banner"></a>
+                </div>
+                <div class="item banner-opacity">
+                    <a href="#"><img src="image/catalog/option6/banner10.jpg" alt="Banner"></a>
+                </div>
+                <div class="banner-opacity">
+                    <a href="#"><img src="image/catalog/option6/banner11.jpg" alt="Banner"></a>
+                </div>
+            </div>
+            <div class="col-sm-2 group-banner-slider" style="padding-left: 2px; margin-left:-15px; padding-right: 0;">
+                <div class=" item policy">
+                    <h5 class="title">policy</h5>
+                    <ul>
+                        <li><a href="#">
+                        <img class="icon1" src="image/catalog/option6/safe1.png" alt="Icon">
+                        <img class="icon2" src="image/catalog/option6/safe2.png" alt="Icon">
+                        Safe Payment
+                        </a></li>
+                        <li><a href="#">
+                        <img class="icon1" src="image/catalog/option6/icon2.png" alt="Icon">
+                        <img class="icon2" src="image/catalog/option6/icon2-1.png" alt="Icon">
+                        Worldwide Delivery</a></li>
+                        <li><a href="#">
+                        <img class="icon1" src="image/catalog/option6/icon3.png" alt="Icon">
+                        <img class="icon2" src="image/catalog/option6/icon3-1.png" alt="Icon">
+                        Change Pay</a></li>
+                        <li><a href="#">
+                        <img class="icon1" src="image/catalog/option6/icon4.png" alt="Icon">
+                        <img class="icon2" src="image/catalog/option6/icon4-1.png" alt="Icon">
+                        Customer Service</a></li>
+                        <li><a href="#">
+                        <img class="icon1" src="image/catalog/option6/icon5.png" alt="Icon">
+                        <img class="icon2" src="image/catalog/option6/icon5-1.png" alt="Icon">
+                        Sales Of Prestige</a></li>
+                    </ul>
+                    <a href="#"><img src="image/catalog/option6/banner6.jpg" alt="Banner"></a>
+                </div>
+                <div class="item banner-opacity">
+                    <a href="#"><img src="image/catalog/option6/banner12.jpg" alt="Banner"></a>
+                </div>
+                <div class="banner-opacity">
+                    <a href="#"><img src="image/catalog/option6/banner13.jpg" alt="Banner"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

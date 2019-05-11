@@ -1,0 +1,27 @@
+<a title="<?php echo $translator->_('Compare')?>" href="<?php echo $compare_url?>" class="btn-compare"><?php echo $translator->_('compare')?></a>
+<a title="<?php echo $translator->_('My wishlist')?>" href="<?php echo $wishlist_url?>" class="btn-heart"><?php echo $translator->_('wishlist')?></a>
+<div class="btn-cart" id="cart-block">
+    <a title="<?php echo $translator->_('My cart')?>" href="<?php echo $cart_url?>"><?php echo $translator->_('Cart')?></a>
+    <span class="notify notify-right"><?php echo $total_item;?></span>
+    <div class="cart-block">
+        <div class="cart-block-content">
+            <?php if ($products || $vouchers) { ?>
+            <h5 class="cart-title"><?php echo $text_items; ?></h5>
+            <div class="cart-block-list">
+                <?php echo $Loader->block('common/cart_item')->setTemplate('cart/item.phtml')->setData(array('products' => $products))->toHtml()?>
+            </div>
+            <?php foreach ($totals as $total) { ?>
+                <div class="toal-cart">
+                    <span><?php echo $total['title']; ?></span>
+                    <span class="toal-price pull-right"><?php echo $total['text']; ?></span>
+                </div>
+            <?php } ?>
+            <div class="cart-buttons">
+                <a href="<?php echo $cart; ?>" class="btn-check-out"><?php echo $translator->_('Checkout')?></a>
+            </div>
+            <?php } else { ?>
+                <p class="text-center"><?php echo $text_empty; ?></p>
+            <?php } ?>
+        </div>
+    </div>
+</div>

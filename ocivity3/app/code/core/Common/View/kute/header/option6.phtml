@@ -1,0 +1,124 @@
+<!-- HEADER -->
+<div id="header" class="header">
+    <div class="top-header">
+        <div class="container">
+        <div class="row">
+                <div class="top-left col-md-6 col-sm-6 col-xs-12">
+                    <div class="currency ">
+                        <?php echo $currency; ?>
+                    </div>
+                    <div class="language ">
+                        <?php echo $language; ?>
+                    </div>
+                    <div class="top-bar-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                    </div>
+                </div>
+                <div class="top-left col-md-6 col-sm-6 col-xs-12 top-link">
+                    <div class="support-link">
+                        <a href="/index.php?route=information/information&information_id=4"><?php echo $translator->_('About Us'); ?></a>
+                        <a href="/index.php?route=information/information&information_id=8"><?php echo $translator->_('Support'); ?></a>
+                    </div>
+
+                    <div id="user-info-top" class="user-info pull-right">
+                        <div class="dropdown">
+                            <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" href="#"><span><?php echo $text_account; ?></span></a>
+
+                            <ul class="dropdown-menu mega_dropdown">
+                                <?php if ($logged) { ?>
+                                    <li><a href="<?php echo $account; ?>"><?php echo $text_account; ?></a></li>
+                                    <li><a href="<?php echo $order; ?>"><?php echo $text_order; ?></a></li>
+                                    <li><a href="<?php echo $transaction; ?>"><?php echo $text_transaction; ?></a></li>
+                                    <li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>
+                                    <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
+                                <?php } else { ?>
+                                    <li><a href="<?php echo $register; ?>"><?php echo $text_register; ?></a></li>
+                                    <li><a href="<?php echo $login; ?>"><?php echo $text_login; ?></a></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/.top-header -->
+    <!-- MAIN HEADER -->
+    <div class="container main-header">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 logo">
+                <?php if ($logo) { ?>
+                    <a href="<?php echo $home; ?>"><img src="<?php echo $logo; ?>" title="<?php echo $name; ?>" alt="<?php echo $name; ?>" class="img-responsive" /></a>
+                <?php } else { ?>
+                    <h1><a href="<?php echo $home; ?>"><?php echo $name; ?></a></h1>
+                <?php } ?>
+            </div>
+            <div class="col-xs-7 col-sm-8 col-md-7 header-search-box">
+                <?php echo $search; ?>
+                <div class="keyword">
+                    <p class="lebal"><?php echo $translator->_('Keywords:')?></p>
+                    <p>
+                        <a href="#">T-shirt, </a>
+                        <a href="#">Leggings, </a>
+                        <a href="#">Cotton, ...</a>
+                    </p>
+                </div>
+            </div>
+            <?php echo $Loader->block('common/cart_container')->setTemplate('cart/container.phtml')->setData($data)->toHtml(); ?>
+        </div>
+
+    </div>
+    <!-- END MANIN HEADER -->
+    <div id="nav-top-menu" class="nav-top-menu">
+        <div class="container">
+            <?php if($displayed_vertical_menu) { ?>
+                <div class="col-sm-3" id="box-vertical-megamenus">
+                    <div class="box-vertical-megamenus opt6" style="left: 0 !important;top:0 !important;">
+                        <h4 class="title">
+                            <span style="display:none;" class="title-menu"><?php echo $translator->_('Categories'); ?></span>
+                            <span class="btn-open-mobile"><i class="fa fa-bars"></i></span>
+                        </h4>
+                        <?php $data['display_vertical_menu'] = 'style="display: none" class="vertical-menu-category"'; ?>
+                        <?php echo $Loader->block('module/verticalmenu')->setTemplate('vertical_menu.phtml')->setData($data)->toHtml(); ?>
+                    </div>
+                </div>
+            <?php } ?>
+            <div id="main-menu" class="col-sm-9 main-menu" style="<?php echo ($displayed_vertical_menu ? 'padding-right: 0 !important;' : 'padding: 0 !important;')?>">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <a class="navbar-brand" href="#"><?php echo $translator->_('MENU'); ?></a>
+                        </div>
+                        <div id="navbar" class="navbar-collapse collapse">
+                            <ul class="nav navbar-nav">
+                                <?php echo $Loader->block('common/header')->setTemplate('header/megamenu.phtml')->toHtml()?>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a class="link-buytheme" href="#"><i class="fa fa-angle-double-right"></i> <?php echo $translator->_('Buy This Template'); ?> </a></li>
+                            </ul>
+                        </div><!--/.nav-collapse -->
+                    </div>
+                </nav>
+            </div>
+
+            <!-- userinfo on top-->
+            <div id="form-search-opntop">
+            </div>
+            <!-- userinfo on top-->
+            <div id="user-info-opntop">
+            </div>
+            <!-- CART ICON ON MMENU -->
+            <div id="shopping-cart-box-ontop">
+                <i class="fa fa-shopping-cart"></i>
+                <div class="shopping-cart-box-ontop-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end header -->

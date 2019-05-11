@@ -1,0 +1,36 @@
+<div class="x_content">
+    <div class="form-group">
+        <label class="control-label col-md-3">General color</label>
+        <div class="col-md-5">
+            <div class="input-group colorpicker-element">
+                <input type="text" value="<?php echo (empty($kutetheme_setting_general_color) ? "#ff3366" : $kutetheme_setting_general_color)?>" class="form-control" name="kutetheme_setting_general_color">
+                <span class="input-group-addon"><i style="background-color: rgb(224, 26, 181);"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="input-logo"><?php echo 'Store logo'; ?></label>
+        <div class="col-sm-4"><a href="" id="thumb-logo" data-toggle="image" class="img-thumbnail"><img src="<?php echo $logo; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>" /></a>
+            <input type="hidden" name="kutetheme_setting_logo" value="<?php echo $kutetheme_setting_logo; ?>" id="input-logo" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="input-logo"><?php echo 'Products on row'; ?></label>
+        <div class="col-sm-4">
+            <select class="form-control" name="kutetheme_setting_category_product_per_row">
+                <option value="1" <?php echo ($kutetheme_setting_category_product_per_row == 1 ? 'selected="selected"' : '')?>>1</option>
+                <option value="2" <?php echo ($kutetheme_setting_category_product_per_row == 2 ? 'selected="selected"' : '')?>>2</option>
+                <option value="3" <?php echo ($kutetheme_setting_category_product_per_row == 3 ? 'selected="selected"' : '')?>>3</option>
+                <option value="4" <?php echo ($kutetheme_setting_category_product_per_row == 4 ? 'selected="selected"' : '')?>>4</option>
+                <option value="6" <?php echo ($kutetheme_setting_category_product_per_row == 6 ? 'selected="selected"' : '')?>>6</option>
+            </select>
+            <i style="margin: 5px 0;color: rgba(128, 128, 128, 0.61);display: block;font-size: 11px;">(Setting for category page)</i>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".colorpicker-element").colorpicker();
+    });
+</script>

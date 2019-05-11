@@ -1,0 +1,1 @@
+<?php echo $Loader->block('common/search')->setTemplate('search.phtml')->setData($data)->toHtml();

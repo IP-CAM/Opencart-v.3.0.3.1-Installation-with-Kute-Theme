@@ -1,0 +1,131 @@
+<div id="header" class="header">
+    <div class="top-header">
+        <div class="container">
+            <div class="currency ">
+                <?php echo $currency; ?>
+            </div>
+            <div class="language ">
+                <?php echo $language; ?>
+            </div>
+            
+            <div class="support-link">
+                <a href="#">Services</a>
+                <a href="#">Support</a>
+            </div>
+
+            <div id="user-info-top" class="user-info pull-right">
+                <div class="dropdown">
+                    <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" href="#"><span><?php echo $text_account; ?></span></a>
+                    
+                  <ul class="dropdown-menu mega_dropdown">
+                    <?php if ($logged) { ?>
+                    <li><a href="<?php echo $account; ?>"><?php echo $text_account; ?></a></li>
+                    <li><a href="<?php echo $order; ?>"><?php echo $text_order; ?></a></li>
+                    <li><a href="<?php echo $transaction; ?>"><?php echo $text_transaction; ?></a></li>
+                    <li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>
+                    <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
+                    <?php } else { ?>
+                    <li><a href="<?php echo $register; ?>"><?php echo $text_register; ?></a></li>
+                    <li><a href="<?php echo $login; ?>"><?php echo $text_login; ?></a></li>
+                    <?php } ?>
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/.top-header -->
+    <!-- MAIN HEADER -->
+    <div class="container main-header">
+        <div class="row top-main-header">
+            <div class="col-sm-12 col-md-3"></div>
+            <div class="col-sm-7 col-md-6">
+                <ul class="main-header-top-link">
+                    <li><a href="#">Promotion</a></li>
+                    <li><a href="#">Payment</a></li>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Return</a></li>
+                    <li><a href="#">Call Us: +04 123456789</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-5 col-md-3">
+                <div class="header-text">
+                    <i class="fa fa-info-circle"></i> Buy 10 Product or $1000 Get Free Shipping 
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-3 logo">
+                <a href="index.html"><img alt="Kute Shop" src="catalog/view/theme/kute/images//data/option3/logo3.png" /></a>
+            </div>
+            <div class="col-xs-6 col-sm-6 header-search-box">
+                <form class="form-inline">
+                      <div class="form-group form-category">
+                        <select class="select-category">
+                            <option value="2">All Categories</option>
+                            <option value="1">Men</option>
+                            <option value="2">Women</option>
+                        </select>
+                      </div>
+                      <div class="form-group input-serach">
+                        <input type="text"  placeholder="Keyword here..."/>
+                      </div>
+                      <button type="submit" class="pull-right btn-search"></button>
+                </form>
+            </div>
+            <div class="col-sm-6 col-md-3 group-button-header">
+                <div class="btn-cart" id="cart-block">
+                    <a title="My cart" href="cart.html">Cart</a>
+                    <span class="notify notify-right">10</span>
+                    <div class="cart-block">
+                    <div class="cart-block-content">
+                        <h5 class="cart-title">2 Items in my cart</h5>
+                        <div class="cart-block-list">
+                            <ul>
+                                <li class="product-info">
+                                    <div class="p-left">
+                                        <a href="#" class="remove_link"></a>
+                                        <a href="#">
+                                        <img class="img-responsive" src="catalog/view/theme/kute/images//data/product-100x122.jpg" alt="p10">
+                                        </a>
+                                    </div>
+                                    <div class="p-right">
+                                        <p class="p-name">Donec Ac Tempus</p>
+                                        <p class="p-rice">61,19 €</p>
+                                        <p>Qty: 1</p>
+                                    </div>
+                                </li>
+                                <li class="product-info">
+                                    <div class="p-left">
+                                        <a href="#" class="remove_link"></a>
+                                        <a href="#">
+                                        <img class="img-responsive" src="catalog/view/theme/kute/images//data/product-s5-100x122.jpg" alt="p10">
+                                        </a>
+                                    </div>
+                                    <div class="p-right">
+                                        <p class="p-name">Donec Ac Tempus</p>
+                                        <p class="p-rice">61,19 €</p>
+                                        <p>Qty: 1</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="toal-cart">
+                            <span>Total</span>
+                            <span class="toal-price pull-right">122.38 €</span>
+                        </div>
+                        <div class="cart-buttons">
+                            <a href="order.html" class="btn-check-out">Checkout</a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <a title="My Account" href="#" class="btn-login">Login</a>
+                <a title="My Wishlist" href="#" class="btn-heart">Wish list</a>
+            </div>
+        </div>
+        
+    </div>
+    <!-- END MANIN HEADER -->
+    <?php require_once 'menu.tpl' ?>
+</div>
+<!-- end header -->

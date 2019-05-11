@@ -1,0 +1,31 @@
+<div id="cart" class="btn-group btn-block">
+    <a class="cart-link">
+        <span class="title"><?php echo $translator->_('Shopping cart'); ?></span>
+        <span id="cart-total" class="total"><?php echo $text_items; ?></span>
+        <span class="notify notify-left"><?php echo $total_item;?></span>
+    </a>
+    <ul class="cart-block">
+        <li class="cart-block-content">
+            <?php if ($products || $vouchers) { ?>
+                <h5 class="cart-title">3 Items in my cart</h5>
+                <div class="cart-block-list">
+                    <div>
+                        <?php echo $Loader->block('common/cart_item')->setTemplate('cart/item.phtml')->setData(array('products' => $products))->toHtml()?>
+                    </div>
+                </div>
+                <?php foreach ($totals as $total) { ?>
+                    <div class="toal-cart">
+                        <span><?php echo $total['title']; ?></span>
+                        <span class="toal-price pull-right"><?php echo $total['text']; ?></span>
+                    </div>
+                <?php } ?>
+
+                <div class="cart-buttons">
+                    <a href="<?php echo $cart; ?>" class="btn-check-out"><?php echo $translator->_('Checkout')?></a>
+                </div>
+            <?php } else { ?>
+                <p class="text-center"><?php echo $text_empty; ?></p>
+            <?php } ?>
+        </li>
+    </ul>
+</div>
